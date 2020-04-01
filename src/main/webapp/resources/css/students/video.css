@@ -1,0 +1,169 @@
+body{
+    background: #f5f5f5;
+}
+
+/*导航栏*/
+.navbar{
+    padding: 0 10px;
+}
+.icon-arrow-left{
+    position: absolute;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.course-name{
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    font-size: 18px;
+    margin-left: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 4px;
+}
+.nav-item:hover{
+   color: #2e6da4;
+}
+/*播放器*/
+.main{
+    width: 100%;
+    height:auto;
+    margin:0px auto 0 auto;
+}
+.main>video{
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+/*播放器控件*/
+.play-control{
+    position: absolute;
+    display: none;
+    height: 55px;
+    background-color: #cccccc;
+    width: 100%
+}
+
+.play-progress{
+    width: 98%;
+    height: 6px;
+    margin: 10px auto;
+    background-color: #9d9d9d;
+    opacity: 0.7;
+    border-radius:3px ;
+    -webkit-user-select: none;
+}
+
+.play-left{
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 1%;
+    -webkit-user-select: none;
+}
+.volume-progress{
+    display: inline-block;
+    width: 80px;
+    height: 4px;
+    background-color: #9d9d9d;
+    line-height: 5px;
+    border-radius:2px ;
+    -webkit-user-select: none;
+}
+.volume-full{
+    border-radius:2px;
+    width: 40px;
+    height:4px;
+    background-color:#59a869;
+    -webkit-user-select: none;
+}
+
+.play-right{
+    float: right;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 1%;
+    -webkit-user-select: none;
+}
+.play-right>select{
+    background-color:transparent;
+    -webkit-user-select: none;
+}
+
+.play-right>span,.play-left>span{
+    /*position: absolute;*/
+    margin: 3px 5px;
+    font-size: 16px;
+    color: white;
+    -webkit-user-select: none;
+}
+.volume{
+    font-size: 12px;
+    -webkit-user-select: none;
+}
+.select-rate{
+    /* 清除默认边框 */
+    border: 0;
+    /* 清除默认的箭头样式 */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+}
+
+.comment-question{
+    position:static;
+    margin-top: 6px;
+    background-color: white;
+    font-size: 18px;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    box-shadow: #666 0px 0px 10px;
+}
+.details{
+    width: 700px;
+    height: 150px;
+    box-shadow: #666 0px 0px 10px;
+    background-color: white;
+    border-radius: 10px/10px;
+    margin:20px auto;
+    padding: 10px;
+}
+
+.comment,.question{
+    display: inline-block;
+    margin: 0 100px;
+}
+
+.user-img{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.comment-name{
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.comment-time{
+    float: right;
+    font-size: 10px;
+    color: #8c8c8c;
+}
+.comment-text{
+    font-size: 16px;
+    width: 100%;
+    height: auto;
+}

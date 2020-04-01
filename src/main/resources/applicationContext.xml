@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--一、加载配置文件db.properties -->
+    <bean id="config" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:db.properties</value>
+            </array>
+        </property>
+    </bean>
+    <!--二、数据源：配置数据库相关 (代替mybatis的配置文件config.xml)-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${driver}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${username}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="maxActive" value="${maxActive}"></property>
+        <property name="maxIdle" value="${maxIdle}"></property>
+    </bean>
+
+    <!--三、配置MyBtis依赖的核心类: 在SpringIoc容器中 创建myBatis的核心类SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+
+        <!--2.1、配置mapper.xml文件：加载mapper.xml映射文件的路径  -->
+        <property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
+
+        <!--2.3、扫描entity包,自动取对应包中不包括包名 的简单类名作为包括包名的别名-->
+        <property name="typeAliasesPackage" value="org.fox.o2o.entity"/>
+
+        <!--加载myBatis配置文件-->
+        <property name="configLocation" value="classpath:configuration.xml"></property>
+    </bean>
+
+    <!--四、Spring整合MyBatis:将MyBatis的SqlSessionFactory交给Spring管理  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--3.1、指定批量产生哪个包中的mapper对象 -->
+        <property name="basePackage" value="org.fox.mooc.dao"></property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+    <!--五、配置扫描器：扫描指定包 :使用注解定义bean-->
+    <context:component-scan base-package="org.fox.mooc.*" />
+
+    <!--六、配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 配置基于注解的声明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

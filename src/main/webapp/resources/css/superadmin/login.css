@@ -1,0 +1,37 @@
+
+body{
+    background-image: url("/mooc/resources/images/index.jpg");
+}
+.main{
+    display: block;
+    width: 500px;
+    height: 400px;
+    border: solid #d9dde1;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
+.tip{
+    display: block;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 30px auto;
+    color: #17a2b8;
+}
+.sheet{
+    width: 400px;
+    height: auto;
+    margin: 30px auto;
+    box-sizing: border-box;
+}
+
+.admin-login{
+    display: block;
+    width: 60px;
+    margin: 15px auto;
+}
+

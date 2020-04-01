@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.fox.mooc.dao.auth.AuthUserDao">
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.AuthUser" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="account" property="account"  jdbcType="VARCHAR" />
+		<result column="username" property="username"  jdbcType="VARCHAR" />
+		<result column="realname" property="realname"  jdbcType="VARCHAR" />
+		<result column="password" property="password"  jdbcType="VARCHAR" />
+		<result column="gender" property="gender"  jdbcType="INTEGER" />
+		<result column="header" property="header"  jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile"  jdbcType="VARCHAR" />
+		<result column="role" property="role"  jdbcType="INTEGER" />
+		<result column="status" property="status"  jdbcType="INTEGER" />
+		<result column="birthday" property="birthday"  jdbcType="DATE" />
+		<result column="education" property="education"  jdbcType="VARCHAR" />
+		<result column="certificate" property="certificate"  jdbcType="VARCHAR" />
+		<result column="college_name" property="collegeName"  jdbcType="VARCHAR" />
+		<result column="title" property="title"  jdbcType="VARCHAR" />
+		<result column="sign" property="sign"  jdbcType="VARCHAR" />
+		<result column="login_time" property="loginTime"  jdbcType="DATE" />
+		<result column="ip" property="ip"  jdbcType="VARCHAR" />
+		<result column="province" property="province"  jdbcType="VARCHAR" />
+		<result column="city" property="city"  jdbcType="VARCHAR" />
+		<result column="district" property="district"  jdbcType="VARCHAR" />
+		<result column="weight" property="weight"  jdbcType="INTEGER" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+	<sql id="All_Columns">
+		account, username,realname, password, gender, header, mobile,
+		role,status, birthday, education, certificate, college_name, title, sign,
+		login_time, ip, province,
+		city, district, weight, create_time, create_user, update_time, update_user,
+		del, id
+	</sql>
+
+	<!--根据account返回用户-->
+	<select id="getByAccount" parameterType="java.lang.String"  resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_auth_user
+		WHERE account = #{account, jdbcType=VARCHAR}
+		AND DEL = 0
+	</select>
+
+	<!--注册用户-->
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.AuthUser" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_auth_user
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="account != null ">
+				account,
+			</if>
+			<if test="realname != null ">
+				realname,
+			</if>
+			<if test="username != null ">
+				username,
+			</if>
+			<if test="password != null ">
+				password,
+			</if>
+			<if test="gender != null ">
+				gender,
+			</if>
+			<if test="header != null ">
+				header,
+			</if>
+			<if test="mobile != null ">
+				mobile,
+			</if>
+			<if test="status != null ">
+				status,
+			</if>
+			<if test="birthday != null ">
+				birthday,
+			</if>
+			<if test="education != null ">
+				education,
+			</if>
+			<if test="certificate != null ">
+				certificate,
+			</if>
+			<if test="collegeName != null ">
+				college_name,
+			</if>
+			<if test="title != null ">
+				title,
+			</if>
+			<if test="sign != null ">
+				sign,
+			</if>
+			<if test="loginTime != null ">
+				login_time,
+			</if>
+			<if test="ip != null ">
+				ip,
+			</if>
+			<if test="province != null ">
+				province,
+			</if>
+			<if test="city != null ">
+				CITY,
+			</if>
+			<if test="district != null ">
+				district,
+			</if>
+			<if test="weight != null ">
+				weight,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="account != null ">
+				#{account, jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null ">
+				#{realname, jdbcType=VARCHAR},
+			</if>
+			<if test="username != null ">
+				#{username, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null ">
+				#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null ">
+				#{gender, jdbcType=INTEGER},
+			</if>
+			<if test="header != null ">
+				#{header, jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null ">
+				#{mobile, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null ">
+				#{status, jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null ">
+				#{birthday, jdbcType=DATE},
+			</if>
+			<if test="education != null ">
+				#{education, jdbcType=VARCHAR},
+			</if>
+			<if test="certificate != null ">
+				#{certificate, jdbcType=VARCHAR},
+			</if>
+			<if test="collegeName != null ">
+				#{collegeName, jdbcType=VARCHAR},
+			</if>
+			<if test="title != null ">
+				#{title, jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null ">
+				#{sign, jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null ">
+				#{loginTime, jdbcType=DATE},
+			</if>
+			<if test="ip != null ">
+				#{ip, jdbcType=VARCHAR},
+			</if>
+			<if test="province != null ">
+				#{province, jdbcType=VARCHAR},
+			</if>
+			<if test="city != null ">
+				#{city, jdbcType=VARCHAR},
+			</if>
+			<if test="district != null ">
+				#{district, jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null ">
+				#{weight, jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null ">
+				#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+				#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据权重返回名师-->
+	<select id="queryRecomd" parameterType="org.fox.mooc.entity.AuthUser" resultMap="BeanResultMap">
+		SELECT
+		account, username,realname, header, mobile, education, college_name, title, sign,id
+		FROM t_auth_user
+		WHERE role = 2
+		AND del = 0
+		ORDER BY weight DESC
+		LIMIT 5
+	</select>
+
+	<!--返回图表所需数据-->
+	<select id="queryGraph" parameterType="org.fox.mooc.entity.AuthUser" resultType="org.fox.mooc.vo.GraphVO">
+		SELECT a.click_date AS graphTime,ifnull(b.count,0) AS count
+		FROM (
+		select curdate() AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 1 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 2 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 3 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 4 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 5 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 6 DAY) AS click_date
+		) a LEFT JOIN (
+		SELECT date_format(create_time, '%Y-%m-%d') AS datetime, count(create_time) AS count
+		FROM t_auth_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="role != null">
+				AND role = #{role }
+			</if>
+		</trim>
+		GROUP BY date_format(create_time, '%Y-%m-%d')
+		) b ON a.click_date = b.datetime
+		ORDER BY a.click_date
+	</select>
+
+	<!--根据条件返回数据库总记录数（1.返回所有）-->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.AuthUser" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_auth_user
+		WHERE del = 0
+		<if test="username != null">
+			AND username like CONCAT('%',#{username},'%' )
+		</if>
+		<if test="role != null">
+			AND role = #{role }
+		</if>
+		<if test="status != null">
+			AND status = #{status }
+		</if>
+	</select>
+
+	<!--模糊查询分页数据-->
+	<select id="queryPage" resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_auth_user
+		WHERE del = 0
+		<if test="authUser.username != null">
+			AND username like CONCAT('%',#{authUser.username},'%' )
+		</if>
+		<if test="authUser.realname != null">
+			OR realname like CONCAT('%',#{authUser.realname},'%' )
+		</if>
+		<if test="authUser.role != null">
+			AND role = #{authUser.role }
+		</if>
+		ORDER BY id
+		LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+	</select>
+
+	<!--根据courseId加载学习用户-->
+	<select id="byCourseIdQuery"  parameterType="java.lang.Long"  resultMap="BeanResultMap">
+		SELECT
+		a.account,a.username,a.gender,a.mobile,a.birthday,a.status
+		FROM t_user_study_course s,t_auth_user a
+		WHERE s.del = 0
+		AND s.user_id = a.id
+		<if test="courseId != null">
+			AND s.course_id = #{courseId }
+		</if>
+		ORDER BY s.update_time
+		<if test="rowIndex != null and pageSize != null">
+			LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<!--根据id查询用户-->
+	<select id="getById" parameterType="java.lang.Long"  resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_auth_user
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+
+	<!--校验登录-->
+	<select id="getByUsernameAndPassword" parameterType="org.fox.mooc.entity.AuthUser" resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_auth_user
+		WHERE account = #{account, jdbcType=VARCHAR}
+		AND  password = #{password, jdbcType=VARCHAR}
+	</select>
+
+
+	<!--选择性更新（更新用户信息、）-->
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.AuthUser" flushCache="true">
+		UPDATE t_auth_user
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="username != null ">
+				username = #{username, jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null ">
+				realname = #{realname, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null ">
+				password = #{password, jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null ">
+				gender = #{gender, jdbcType=INTEGER},
+			</if>
+			<if test="header != null ">
+				header = #{header, jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null ">
+				mobile = #{mobile, jdbcType=VARCHAR},
+			</if>
+			<if test="role != null ">
+				role = #{role, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+				status = #{status, jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null ">
+				birthday = #{birthday, jdbcType=DATE},
+			</if>
+			<if test="education != null ">
+				education = #{education, jdbcType=VARCHAR},
+			</if>
+			<if test="certificate != null ">
+				certificate = #{certificate, jdbcType=VARCHAR},
+			</if>
+			<if test="collegeName != null ">
+				college_name = #{collegeName, jdbcType=VARCHAR},
+			</if>
+			<if test="title != null ">
+				title = #{title, jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null ">
+				sign = #{sign, jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null ">
+				login_time = #{loginTime, jdbcType=DATE},
+			</if>
+			<if test="ip != null ">
+				ip = #{ip, jdbcType=VARCHAR},
+			</if>
+			<if test="province != null ">
+				province = #{province, jdbcType=VARCHAR},
+			</if>
+			<if test="city != null ">
+				city = #{city, jdbcType=VARCHAR},
+			</if>
+			<if test="district != null ">
+				district = #{district, jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null ">
+				weight = #{weight, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null ">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+	</update>
+
+	<insert id="create" parameterType="org.fox.mooc.entity.AuthUser" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_auth_user
+		( account,realname, username, password, gender, header, mobile,role,
+		status, birthday, education, certificate, college_name, title, sign,
+		login_time, ip, province,
+		city, district, weight, create_time, create_user, update_time, update_user,
+		del, id )
+		VALUES
+		( #{account, jdbcType=VARCHAR},#{realname, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{gender, jdbcType=INTEGER}, #{header, jdbcType=VARCHAR}, #{mobile, jdbcType=VARCHAR},
+		#{role, jdbcType=INTEGER},#{status, jdbcType=INTEGER}, #{birthday, jdbcType=DATE}, #{education, jdbcType=VARCHAR}, #{certificate, jdbcType=VARCHAR}, #{collegeName, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{sign, jdbcType=VARCHAR},
+		#{loginTime, jdbcType=DATE}, #{ip, jdbcType=VARCHAR}, #{province, jdbcType=VARCHAR},
+		#{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR} , #{weight, jdbcType=INTEGER}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP}, #{updateUser, jdbcType=VARCHAR},
+		#{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} )
+	</insert>
+
+	<update id="update" parameterType="org.fox.mooc.entity.AuthUser" flushCache="true">
+		UPDATE t_auth_user SET
+		realname = #{realname, jdbcType=VARCHAR},
+		username = #{username, jdbcType=VARCHAR},
+		password = #{password, jdbcType=VARCHAR},
+		gender = #{gender, jdbcType=INTEGER},
+		header = #{header, jdbcType=VARCHAR},
+		mobile = #{mobile, jdbcType=VARCHAR},
+		role = #{role, jdbcType=INTEGER},
+		status = #{status, jdbcType=INTEGER},
+		birthday = #{birthday, jdbcType=DATE},
+		education = #{education, jdbcType=VARCHAR},
+		certificate = #{certificate, jdbcType=VARCHAR},
+		college_name = #{collegeName, jdbcType=VARCHAR},
+		title = #{title, jdbcType=VARCHAR},
+		sign = #{sign, jdbcType=VARCHAR},
+		login_time = #{loginTime, jdbcType=DATE},
+		ip = #{ip, jdbcType=VARCHAR},
+		province = #{province, jdbcType=VARCHAR},
+		city = #{city, jdbcType=VARCHAR},
+		district = #{district, jdbcType=VARCHAR},
+		weight = #{weight, jdbcType=INTEGER},
+		update_time = #{updateTime, jdbcType=TIMESTAMP},
+		update_user = #{updateUser, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+	<delete id="delete" parameterType="org.fox.mooc.entity.AuthUser" >
+		DELETE
+		FROM t_auth_user
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.AuthUser" flushCache="true">
+		UPDATE t_auth_user
+		SET del = 1
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+</mapper>
+
+
+
+
+

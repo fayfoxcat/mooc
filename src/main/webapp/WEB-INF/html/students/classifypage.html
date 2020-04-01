@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/mooc/resources/images/学士帽.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/mooc/resources/css/common/bootstrap.css">
+    <link rel="stylesheet" href='/mooc/resources/css/common/common.css'>
+    <link rel="stylesheet" href="/mooc/resources/css/students/classifypage.css">
+
+    <script type='text/javascript' src='/mooc/resources/js/common/jquery-3.4.1.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/bootstrap.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/common.js' charset='utf-8'></script>
+    <script src="/mooc/resources/js/common/utils.js"></script>
+    <script src='/mooc/resources/js/students/classifypage.js'></script>
+    <title>全部分类</title>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mooc">创课网首页</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc/classifypage">全部分类</a>
+                </li>
+            </ul>
+            <span class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="keyword" placeholder="输入关键词讲师或课程">
+                <button class="btn btn-outline-success my-2 my-sm-0" id="search">搜索</button>
+            </span>
+            <span class="head-img"></span>
+        </div>
+    </div>
+</nav>
+<!--条件分类、课程表-->
+<div class=".container main">
+    <!--一级分类-->
+    <div class="row head">
+        <div class="col-md-1 classify-title">
+            一级类
+        </div>
+        <div class="col-md-10">
+            <div id="top-classify">
+                <button type="button" class="btn all-top btn-secondary btn-classify">全部</button>
+            </div>
+        </div>
+    </div>
+    <!--二级分类-->
+    <div class="row head">
+        <div class="col-md-1 classify-title">
+            二级类
+        </div>
+        <div class="col-md-10">
+            <div id="sub-classify">
+                <button type="button" class="btn-sub btn btn-secondary btn-classify">全部</button>
+            </div>
+        </div>
+    </div>
+    <!--流行分类-->
+    <div class="row head">
+        <div class="col-md-1 classify-title">
+            排序
+        </div>
+        <div class="col-md-10">
+            <div>
+                <button type="button" class="btn btn-popular btn-secondary btn-classify" data-sort = "create_time">最新</button>
+                <button type="button" class="btn btn-popular btn-secondary btn-classify" data-sort = "study_count">最热</button>
+            </div>
+        </div>
+    </div>
+    <!--热门课程分类-->
+    <div class="row tip">
+        <div class="col-md-5" style="font-size: 16px;">
+            <span class="top-name">全部</span>
+            <span class="sub-name"></span>
+            <span class="popular-name"></span>
+        </div>
+    </div>
+    <!--具体课程-->
+    <div class="row tab-course"></div>
+</div>
+<!--底部导航栏-->
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <div class="container tail">
+        <div class="tail-main">
+            <img class="tail-img" src="/mooc/resources/images/brand.png">
+            <div class="tail-other">
+                <span class="tail-version">安徽省蚌埠市蚌埠学院毕业设计版权所有 </span>
+                <span class="tail-contact-us"> Copyright © 2020 bbu. All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

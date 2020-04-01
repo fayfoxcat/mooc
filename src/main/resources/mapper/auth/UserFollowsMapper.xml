@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.fox.mooc.dao.auth.UserFollowsDao">
+
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.UserFollows" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId"  jdbcType="VARCHAR" />
+		<result column="follow_id" property="followId"  jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+	<sql id="All_Columns">
+		user_id, follow_id, create_time, create_user, update_time, update_user,
+		del, id
+	</sql>
+
+	<!--返回所有记录-->
+	<select id="queryAll" parameterType="org.fox.mooc.entity.UserFollows" resultType="org.fox.mooc.entity.UserFollows">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_user_follows
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="followId != null">
+				AND follow_id = #{followId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY id
+	</select>
+
+	<!--获取当前用户关注总记录数-->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.UserFollows" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_user_follows
+		WHERE del = 0
+		AND user_id = #{userId, jdbcType=INTEGER}
+	</select>
+
+	<!--分页查询当前用户关注列表-->
+	<select id="queryPage" resultType="org.fox.mooc.entity.UserFollows">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_user_follows
+		WHERE del = 0
+		AND user_id = #{userId, jdbcType=INTEGER}
+		ORDER BY id
+		LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+	</select>
+
+	<select id="getFollowStudyRecordCount" parameterType="org.fox.mooc.entity.UserFollowStudyRecord" resultType="java.lang.Integer">
+		SELECT COUNT(cs.id)
+		FROM
+		t_user_follows f ,t_user_course_section cs
+		WHERE f.user_id = #{userId, jdbcType=INTEGER}
+		AND f.follow_id = cs.user_id
+		AND f.del = 0
+	</select>
+
+	<select id="queryFollowStudyRecord" resultType="org.fox.mooc.entity.UserFollowStudyRecord">
+		SELECT
+		cs.course_id, cs.section_id , f.follow_id,
+		c.name as courseName, s.name as sectionName,
+		u.username,u.header,cs.create_time
+		FROM
+		t_user_follows f ,t_user_course_section cs, t_course c , t_course_section s, t_auth_user u
+		WHERE f.user_id = #{param1.userId, jdbcType=INTEGER}
+		AND f.follow_id = cs.user_id
+		AND f.del = 0
+		AND f.follow_id = u.id
+		AND cs.course_id = c.id
+		AND cs.section_id = s.id
+		ORDER BY cs.id DESC
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+	</select>
+
+	<!--根据id获取关注记录-->
+	<select id="getById" parameterType="java.lang.Long" resultType="org.fox.mooc.entity.UserFollows">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_follows
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<!--添加关注-->
+	<insert id="create" parameterType="org.fox.mooc.entity.UserFollows" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_follows
+		( user_id, follow_id, create_time, create_user, update_time, update_user,
+		del, id )
+		VALUES
+		( #{userId, jdbcType=VARCHAR}, #{followId, jdbcType=VARCHAR}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP}, #{updateUser, jdbcType=VARCHAR},
+		#{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} )
+	</insert>
+
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.UserFollows" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_follows
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				user_id,
+			</if>
+			<if test="followId != null ">
+				follow_id,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				#{userId, jdbcType=INTEGER},
+			</if>
+			<if test="followId != null ">
+				#{followId, jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null ">
+				#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+				#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="org.fox.mooc.entity.UserFollows" flushCache="true">
+		UPDATE t_user_follows SET
+		user_id = #{userId, jdbcType=VARCHAR},
+		follow_id = #{followId, jdbcType=VARCHAR},
+		update_time = #{updateTime, jdbcType=TIMESTAMP},
+		update_user = #{updateUser, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.UserFollows" flushCache="true">
+		UPDATE t_user_follows
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="userId != null ">
+				user_id = #{userId, jdbcType=VARCHAR},
+			</if>
+			<if test="followId != null ">
+				follow_id = #{followId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+
+	</update>
+
+	<delete id="delete" parameterType="org.fox.mooc.entity.UserFollows" >
+		DELETE FROM t_user_follows
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<!--逻辑删除-->
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.UserFollows" flushCache="true">
+		UPDATE t_user_follows
+		SET del = 1
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+</mapper>

@@ -1,0 +1,449 @@
+
+body{
+    background-image: url("/mooc/resources/images/index.jpg");
+    /*filter: blur(5px);*/
+}
+/*顶部搜索栏*/
+.container{
+    padding-left:0;
+    padding-right:0;
+}
+
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+/*个人中心主体*/
+/*课程发布模块，默认隐藏*/
+.teach-model{
+    display: none;
+}
+.main{
+    position: relative;
+    width: 1140px;
+    height:auto;
+    margin: 80px auto 0 auto;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 20px;
+}
+.row{
+    margin: auto 0;
+}
+/*左侧*/
+.title-bar{
+    width: 100%;
+    height: auto;
+
+}
+
+.title-bar .user-img{
+}
+.header {
+    position: relative;
+    display: block;
+    width: 85px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    margin: 0 auto;
+    border-radius: 4px;
+    overflow: hidden;
+    color: #1E88C7;
+    font-size: 14px;
+    text-decoration: none;
+    text-indent: 0;
+}
+.header input {
+    position: absolute;
+    /*font-size: 100px;*/
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.header:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+.user-img .img{
+    display: inline-block;
+    cursor: pointer;
+    z-index: 90;
+    width: 90px;
+    height: 90px;
+    margin:20px 40px 10px 40px;
+}
+
+.account, .name{
+    text-align: center;
+}
+
+.classify-bar{
+    width: 100%;
+    height: 640px;
+    /*border: solid;*/
+}
+.tip{
+    font-size: 20px;
+    font-weight: bold;
+    margin:10px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #5e5e5e;
+}
+
+ul{
+    list-style-type: none;/*清除默认样式*/
+}
+
+.classify{
+    margin:30px auto;
+    cursor: pointer;
+}
+
+.classify-left{
+    display: inline-block;
+    font-size: 18px;
+}
+
+.active{
+    color: #a71d2a;
+}
+.classify-bar .user-classify{
+}
+
+/*右侧*/
+.user-info{
+    width: 900px;
+    height: 120px;
+    /*border-bottom: solid 1px #9d9d9d;*/
+    /*margin-left: 30px;*/
+    padding-left: 30px;
+    line-height: 120px;
+    /*border: solid;*/
+}
+
+.head{
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.operator{
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    float: right;
+}
+.describe{
+    cursor: pointer;
+}
+/*我的消息*/
+.message-content{
+    background-color: rgba(255,255,255,0);
+    height: auto;
+    padding: 10px;
+    border-bottom: solid 1px #adb5bd;
+}
+.message-head{
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+.message-state{
+    position: absolute;
+    display: inline-block;
+    float: right;
+    right: 40px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 5px;
+}
+.receipt-name{
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    margin-left: 50px;;
+    text-overflow: ellipsis;
+}
+.message-time{
+    display: block;
+    margin-left: 50px;;
+    font-size: 12px;
+}
+.message-body{
+    width:auto;
+    margin: 3px 50px;
+    height: auto;
+}
+
+/*个人信息*/
+.user-details{
+    /*border: solid 1px #9d9d9d;*/
+    width: 900px;
+    height: 420px;
+    padding-left: 30px;
+    margin-top: 20px;
+    /*margin-left: 30px;*/
+}
+
+.user-details .details{
+    margin: 15px 20px;
+    padding: 5px 0px;
+}
+
+.label{
+    width:120px ;
+    height: 60px;
+    line-height: 60px;
+    display: inline-block;
+    color: black;
+    background-color: #f8fafc;
+    margin-right: 14px;
+    text-align: center;
+}
+.content{
+    display: inline-block;
+    height: 60px;
+    width: 700px;
+    line-height: 60px;
+    color: black;
+    border: none ;
+    border-bottom: solid 1px #9d9d9d;
+    outline-color: invert ;
+    outline-style: none ;
+    box-shadow: none;
+}
+/*详细信息模态框*/
+.message-info{
+}
+.message-course{
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px 5px 10px;
+}
+.message-text{
+    display: block;
+    font-size: 14px;
+    color: #4e555b;
+    margin: 10px;
+
+}
+
+.submit-replay{
+    margin-top: 10px;
+    float: right;
+
+}
+
+/*我的收藏*/
+.course-container{
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #f8fafc;
+}
+.course-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.course-content{
+    display: inline-block;
+    position: absolute;
+    margin-left: 20px;
+}
+.course-name{
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    line-height: 20px;
+    margin:10px 0;
+    color: orange;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-owner{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin:10px 30px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-brief{
+    display: block;
+    height: 60px;
+    font-size: 14px;
+    color: #5e5e5e;
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-operator{
+    position: absolute;
+    display: inline-block;
+    margin-left: 550px;
+}
+.tips{
+    width: 240px;
+    height: 50px;
+    margin: 10px 0 10px 0;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cancel-collection{
+    display: inline-block;
+    padding: 3px;
+    float: right;
+}
+.cancel-collection:hover{
+    display: inline-block;
+    color: #17a2b8;
+    padding: 3px;
+    float: right;
+    cursor: pointer;
+}
+/*我的关注*/
+.follows{
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #f8fafc;
+}
+.teacher-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.teacher-info{
+    width: 650px;
+    display: inline-block;
+    position: absolute;
+    margin-left: 20px;
+}
+.teacher-name{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 20px;
+}
+.teacher-education{
+    font-size: 14px;
+    color: #5e5e5e;
+}
+.teacher-title{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    margin: 10px 30px;
+}
+.teacher-sign{
+    display: block;
+    height: 60px;
+    margin: 10px 20px;
+    font-size: 14px;
+    /*多余部分溢出省略号表示*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cancel-follow{
+    float: right;
+}
+/*修改密码*/
+.modify-code{
+    width: 560px;
+}
+.btn-modify-password{
+    display: block;
+    font-size: 20px;
+    margin: 20px auto;
+}
+/*模态框*/
+.sheet{
+    width: 365px;
+    height: auto;
+    margin: 10px auto;
+    /*border: solid;*/
+    box-sizing: border-box;
+}
+
+.sheet .modal-lable{
+    position: absolute;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.sheet .form-input{
+    display: inline-block;
+    height: 30px;
+    box-sizing: border-box;
+    font-size: 16px;
+    /*border-radius: 10px/10px;*/
+    margin: 0 10px 0 80px;
+    width: 245px;
+}
+.form-address{
+    display: inline-block;
+    /*height: 36px;*/
+    box-sizing: border-box;
+    font-size: 16px;
+    /*border-radius: 10px/10px;*/
+    margin: 0 10px 0 80px;
+    width: 255px;
+}
+.modal-address{
+    display: inline-block;
+    outline: none;
+    width: 70px;
+    height: 30px;
+    margin-right: 12px;
+    appearance: none;
+    -moz-appearance: none;
+}
+
+/*设置分页序号*/
+.order-content{
+    display: table;
+    margin: 0 auto;
+}
+.order-content>li{
+    list-style-type: none;
+    font-weight: bold;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    line-height: 35px;
+    text-align: center;
+    margin: 0 10px;
+    float: left;
+    border-radius: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+.order-content>li:hover{
+    border: solid 1px #5e5e5e;
+    background-color: #d9dde1;
+}

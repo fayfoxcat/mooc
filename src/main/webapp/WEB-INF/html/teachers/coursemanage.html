@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/mooc/resources/images/学士帽.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/mooc/resources/css/common/bootstrap.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/icons.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/common.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/webuploader.css">
+    <link rel="stylesheet" href="/mooc/resources/css//teachers/coursemanage.css">
+
+    <script type='text/javascript' src='/mooc/resources/js/common/jquery-3.4.1.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/bootstrap.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/common.js' charset='utf-8'></script>
+    <script src="/mooc/resources/js/common/utils.js"></script>
+    <script src="/mooc/resources/js/common/webuploader.js"></script>
+    <script src='/mooc/resources/js/teachers/coursemanage.js'></script>
+    <title>课程管理</title>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mooc">创课网首页</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc/classifypage">全部分类</a>
+                </li>
+            </ul>
+            <a href="/mooc/personinfo" class="user-img"></a>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <!--侧边栏-->
+    <div class="left-bar">
+        <div class="user-state">
+            <div class="user-head">
+                <img src="/mooc/resources/images/person.png" class="img rounded-circle" height="90" width="90"/>
+            </div>
+            <div class="user-name">&nbsp;</div>
+            <div class="icons">
+                <span class="icon icon-envelope"></span>
+                <span class="icon icon-bell-fill"></span>
+            </div>
+        </div>
+        <div class="user">
+            <div class="tip" id="user-tip">
+                <span class="icon-person-fill"></span>
+                <span class="tip-bar">功能管理</span>
+            </div>
+            <ul id="user-collapse">
+                <li class="manage-publish manage">发布课程<span class="icon-chevron-right"></span></li>
+                <li class="manage-course manage">管理课程<span class="icon-chevron-right"></span></li>
+            </ul>
+        </div>
+    </div>
+    <!--主体-->
+    <div class="right-main">
+        <div class="container-fluid">
+            <!--发布课程-->
+            <div class="content collapse collapse-course " id="manage-publish">
+                <!--章节基本信息-->
+                <div class="course-baseinfo">
+                    <h3 class="courseinfo-tip">课程基本信息</h3>
+                    <div class="sheet">
+                        <div class="input-group mb-3">
+                            <img src="" class="course-picture" alt="" id="course-picture">
+                        </div>
+                    </div>
+                    <div class="sheet">
+                        <div class="input-group mb-3">
+                            <div class="course-label input-group-prepend">
+                                <span class="input-group-text">名称</span>
+                            </div>
+                            <input type="text" id="course-name" class="reset form-control">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">图片</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="reset custom-file-input"  id="course-img" onchange="checkCourse(this.value)">
+                                <label class="custom-file-label" for="course-picture">选择文件</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sheet">
+                        <div class="input-group mb-3 course-name">
+                            <div class="course-label input-group-prepend">
+                                <span class="input-group-text">分类</span>
+                            </div>
+                            <select class="reset custom-select" id="top-classify"></select>
+                            <div class="course-label input-group-prepend">
+                                <span class="input-group-text">二级分类</span>
+                            </div>
+                            <select class="reset custom-select" id="sub-classify"></select>
+                            <div class="course-label input-group-prepend">
+                                <span class="input-group-text">讲师</span>
+                            </div>
+                            <input type="text" id="course-owner" class="reset form-control" >
+                            <div class="course-label input-group-prepend">
+                                <span class="input-group-text">时常</span>
+                            </div>
+                            <input type="text" id="course-time" class="reset form-control">
+                        </div>
+                    </div>
+                    <div class="sheet">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="course-label input-group-text">简介</span>
+                            </div>
+                            <textarea class="reset form-control" id="course-brief"></textarea>
+                        </div>
+                    </div>
+                    <div class="sheet">
+                        <div class="input-group">
+                            <button class="btn btn-info save-course" id="save-course">保存课程</button>
+                        </div>
+                    </div>
+                </div>
+                <!--添加章节信息-->
+                <div class="course-details ">
+                    <div class="toggle-details">
+                        <button class="manage-add btn btn-outline-success btn-manage" style="margin: 0 10px">添加新的章节</button>
+                        <button class="manage-modify btn btn-outline-warning btn-manage" style="margin: 0 10px">修改已有章节</button>
+                        <button id="ctlBtn" class="btn btn-outline-info"  style="display: none;float:right;margin: 0 30px">开始上传</button>
+                        <div id="picker" style="display: none;">选择文件</div>
+                        <h3 class="courseinfo-tip">章节详细信息</h3>
+                    </div>
+                    <!--修改章节bar-->
+                    <div class="content collapse collapse-chapter" id="manage-modify">
+                        <div class="modify-content"></div>
+                    </div>
+                    <!--添加章节bar-->
+                    <div class="content collapse collapse-chapter show" id="manage-add">
+                        <div class="operator">
+                            <button class="btn btn-info" id="add-chapter">+添加章</button>
+                            <button class="btn btn-info" id="save-chapter">保存章节信息</button>
+                        </div>
+                        <!--章信息-->
+                        <div class="chapter-content" sid="chapter-content">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" >章名称</span>
+                                </div>
+                                <input type="text" class="chapter-name form-control" placeholder="输入章名称" name="chapter-name" >
+                                <div class="btn-section">
+                                    <button class="btn btn-info remove-chapter">-删除章</button>
+                                    <button class="btn btn-info add-section">+添加节</button>
+                                </div>
+                            </div>
+                            <!--节信息-->
+                            <div class="section-content" sid="section-content">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >小节名称</span>
+                                    </div>
+                                    <input type="text" class="section-name form-control" placeholder="输入小节名" name="section-name" >
+                                    <button class="btn btn-info remove-section">-删除节</button>
+                                </div>
+                                <div class="section-input">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">视频链接</span>
+                                        </div>
+                                        <input type="text" placeholder="若需要本地上传视频资源，此项可不填，稍后在<视频上传>栏单独处理" class="section-name form-control" name="section-video" >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">小节时常</span>
+                                        </div>
+                                        <input type="time" class="section-time form-control" value="00:00" name="section-time" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--我的课程-->
+            <div class="content collapse collapse-course show" id="manage-course">
+                <h3 class="courseinfo-tip">已发布课程列表</h3>
+                <div id="course-list"></div>
+            </div>
+        </div>
+    </div>
+    <!--分页按钮区域-->
+    <div class="page" id="page"></div>
+</div>
+<!--章节管理模态框-->
+<div class="modal fade" id="modify-section" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong>修改章节信息</strong>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text group-tip">章节名</span>
+                        </div>
+                        <input type="text" class="form-control" id="chapter-name" placeholder="输入章节名称">
+                    </div>
+                </div>
+                <div id="sheet-section">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text group-tip">视频URL</span>
+                            </div>
+                            <input type="text" class="form-control" id="video-url">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text group-tip">视频时常</span>
+                            </div>
+                            <input type="text" class="form-control" id="video-time">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit btn btn-success" id="save-section" style="float: right;">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部导航栏-->
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <div class="container tail">
+        <div class="tail-main">
+            <img class="tail-img" src="/mooc/resources/images/brand.png">
+            <div class="tail-other">
+                <span class="tail-version">安徽省蚌埠市蚌埠学院毕业设计版权所有 </span>
+                <span class="tail-contact-us"> Copyright © 2020 bbu. All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,364 @@
+@charset "UTF-8";
+.col-md-1-5{
+    position: relative;
+    min-height: 1px;
+}
+.col-md-1-20{
+    position: relative;
+    min-height: 1px;
+}
+@media (min-width: 992px) {
+    .col-md-1-5 {
+        width: 20%;
+        float: left;
+    }
+    .col-md-1-20 {
+        width: 5%;
+        float: left;
+    }
+}
+
+body{
+    background: #f5f5f5;
+    z-index: 1000;
+}
+
+/*导航栏*/
+.container{
+    padding-left:0;
+    padding-right:0;
+}
+
+.collapse span{
+    display: inline-block;
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+
+}
+
+.collapse span:hover{
+    display: inline-block;
+    color: red;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+
+}
+
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+/*主体*/
+.main{
+    margin:90px 0 130px 0;
+}
+.head{
+    width: 1140px;
+    margin: 15px auto;
+    /*border: solid;*/
+}
+
+/*课程分类、轮播图区*/
+.banner{
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 0;
+    height: 400px;
+    width: 855px;
+    /*border: solid;*/
+}
+
+.banner ul{
+    list-style-type: none;/*清除默认样式*/
+    margin: 0;
+    padding: 0;
+}
+.banner .item{
+    position: absolute;
+    display:none;
+}
+.banner img{
+    width: 855px;
+    height: 400px;
+}
+
+.lr-tab .btn{
+    position:absolute;
+    top:45%;
+    width: 41px;
+    height:69px;
+    background:url("/mooc/resources/images/icon-slides.png");
+}
+
+.lr-tab .left{
+    left:180px;
+    background-position-x: -84px;
+}
+.lr-tab .right{
+    right:0px;
+    background-position-x: -125px;
+}
+.lr-tab .left:hover{
+    background-position-x: 0px;
+}
+.lr-tab .right:hover{
+    background-position-x: -42px;
+}
+/*轮播图底部按钮*/
+.tab-btn{
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    width: 120px;
+    height: 30px;
+}
+.tab-btn .btn{
+    list-style-type: none;/*清除默认样式*/
+    padding: 0;
+    float: left;    /*左浮动*/
+    width: 8px;
+    height: 8px;
+    background:#868686;
+    border:2px solid #c3c3c3;   /*边框*/
+    margin-left: 10px;
+    border-radius:50%;
+}
+.tab-btn .btn:hover{
+    background:#e4e4e4;
+    border-color: #7f7f7f;  /*单独设置边框颜色*/
+}
+
+.tab-btn .active{
+    background:#e4e4e4;
+    border-color: #7f7f7f;  /*单独设置边框颜色*/
+}
+
+/*课程分类：一级分类*/
+.top-classify{
+    position: absolute;
+    width: 180px;
+    height: 400px;
+    overflow-y: scroll;
+}
+.top-classify::-webkit-scrollbar {
+    /*隐藏滚轮*/
+    display: none;
+}
+
+.top-classify div{
+    opacity: 0.6;
+}
+.top-classify button{
+    height: 51px;
+}
+/*课程分类：二级分类*/
+.sub-calssify{
+    position: absolute;
+    margin-left: 180px;
+    padding: 20px 30px;
+    width: 500px;
+    height: 400px;
+    background-color: white;
+    display: none;
+}
+.sub-calssify .parent-name{
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+.sub-name{
+    cursor: pointer;
+}
+.sub-name:hover{
+    cursor: pointer;
+    color: #2e6da4;
+}
+
+/*登录建议*/
+.div-md{
+    padding-right: 8px;
+    cursor: pointer;
+}
+.login-advice{
+    padding-top: 30px;
+    height: 400px;
+    background-color: #fdfdfd;
+    /*border: solid;*/
+}
+.login-advice .advice{
+    font-size: 20px;
+    margin: 0 40px 50px 40px;
+    text-align:center
+}
+
+.login-advice .advice-img{
+    display: block;
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+}
+.login-advice button{
+    display: block;
+    margin: 50px auto ;
+    width: 120px;
+}
+/*热门课程*/
+.popular{
+    width: 1140px;
+    margin: 20px auto;
+}
+.popular div:nth-child(1) .simple-classify{
+    background: #17a2b8;
+}
+.popular div:nth-child(2) .simple-classify{
+    background: #e0a800;
+}
+.popular div:nth-child(3) .simple-classify{
+    background: #c69500;
+}
+.popular div:nth-child(4) .simple-classify{
+    background: #59a869;
+}
+.popular div:nth-child(5) .simple-classify{
+    background: #95999c;
+}
+/*免费课程*/
+
+.new div:nth-child(1) .simple-classify{
+    background: #c69500;
+}
+.new div:nth-child(2) .simple-classify{
+    background: #59a869;
+}
+.new div:nth-child(3) .simple-classify{
+    background: #95999c;
+}
+.new div:nth-child(4) .simple-classify{
+    background: #17a2b8;
+}
+.new div:nth-child(5) .simple-classify{
+    background: #e0a800;
+}
+.new{
+    width: 1140px;
+    margin: 20px auto;
+}
+
+/*课程区*/
+.course{
+    height:230px;
+    width: 213px;
+    margin: 0 15px 20px  0 ;
+    padding: 0;
+    border-radius: 10px/10px;
+    box-shadow: #666 0 0 10px;
+}
+
+.simple-classify{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    height:45px;
+    line-height:45px;
+    padding-left: 20px;
+    font-size: 18px;
+    /*background: #5bc0de;*/
+}
+
+.course-name{
+    padding:10px 20px;
+    width: 100%;
+    height:30px ;
+    font-size: 15px;
+    /*多余部分溢出省略号表示*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*禁止换行*/
+    white-space: nowrap;
+}
+
+.course-details{
+    padding:10px 20px 10px 20px;
+    width: 100%;
+    height:80px ;
+    font-size: 10px;
+    color: #93999f;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.course-owner{
+    display: inline-block;
+    margin:5px 0 10px 20px;
+}
+
+.course-time{
+    display: inline-block;
+    float: right;
+    padding: 0 10px;
+    margin:5px 10px;
+}
+.course-count{
+    display: inline-block;
+    float: right;
+    margin:5px 20px;
+    font-size: 14px;
+    color: #17a2b8;
+}
+
+/*名师指导*/
+.famous{
+    width: 1140px;
+    height: 340px;
+    margin: 20px auto;
+    padding: 0;
+}
+.famous .teacher{
+    border-radius: 3%;
+    height: 340px;
+    width: 213px;
+    margin: 0 15px 20px  0 ;
+    box-shadow: #666 0px 0px 10px;
+    padding-top: 30px;
+}
+.famous .img{
+    display:block;
+    width: 120px;
+    height: 120px;
+    margin: 0px auto;
+}
+.famous .name{
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 0px;
+}
+
+.famous .info{
+    display: block;
+    height: 40px;
+    font-size: 10px;
+    color:#93999f ;
+    text-align: center;
+    padding:10px 20px 10px 20px;
+}
+.famous .sign{
+    display:block;
+    height: 65px;
+    font-size: 10px;
+    color:#93999f ;
+    padding:10px 20px 10px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*标头*/
+.tip{
+    width: 1140px;
+    margin: 20px auto;
+    font-size: 20px;
+}

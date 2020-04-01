@@ -1,0 +1,281 @@
+body{
+    background-image: url("/mooc/resources/images/course-bg.jpg");
+}
+/*顶部搜索栏*/
+.container{
+    padding-left:0;
+    padding-right:0;
+}
+
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+
+/*主体部分*/
+.main{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background-color: rgba(255,255,255,0);
+    margin: 60px auto 130px auto;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+ul>li{
+    list-style-type: none;
+    cursor: pointer;
+}
+/*侧边栏*/
+.left-bar{
+    position: absolute;
+    display: inline-block;
+    background-color: rgba(255,255,255,0);
+    /*border: solid 1px;*/
+    margin: 10px 0 0 10px;
+    min-height: 940px;
+    width: 250px;
+}
+/*用户信息*/
+.user-state{
+    margin: 15px auto;
+}
+.user-head{
+    display: block;
+    margin: 25px auto 10px;
+    width: 90px;
+    height:90px;
+}
+.user-name{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #117a8b;
+}
+
+.icons{
+    width: 65px;
+    margin:5px auto;
+}
+.icon{
+    color:#5e5e5e ;
+    padding: 0;
+    margin: 0;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.toggle-details{
+    margin: 20px;
+}
+
+.manage{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px auto;
+}
+.manage span{
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+}
+.active{
+    color: red;
+}
+.tip{
+    cursor: pointer;
+}
+.classify-bar,.user{
+    border-top: solid 1px;
+}
+.icon-person-fill,.icon-grid-fill{
+    position: absolute;
+    left: 10px;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.tip .icon-chevron-left{
+    position: absolute;
+    line-height: 45px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.tip-bar{
+    display: inline-block;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-left: 50px;
+}
+/*右展示区*/
+.right-main{
+    display:flex;
+    background-color: rgba(255,255,255,0);
+    margin: 10px 10px 10px 270px;
+    min-height: 940px;
+}
+.container-fluid{
+    padding: 0;
+    margin: 0;
+}
+
+/*我的发布*/
+.course-container{
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #f8fafc;
+}
+.course-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.course-content{
+    display: inline-block;
+    position: absolute;
+    margin-left: 20px;
+}
+.name-course{
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    line-height: 20px;
+    margin:10px 0;
+    color: orange;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-owner{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin:10px 30px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-brief{
+    display: block;
+    height: 60px;
+    font-size: 14px;
+    color: #5e5e5e;
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*课程基本信息*/
+.course-picture{
+    display: block;
+    border: solid 1px;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto;
+    padding: 1px;
+}
+.course-baseinfo{
+    border-bottom: solid 1px #adb5bd;
+}
+.courseinfo-tip{
+    color: #117a8b;
+    margin: 20px;
+}
+.sheet{
+    display: table;
+    margin: 10px auto;
+    width: 800px;
+}
+.save-course{
+    margin: 0 auto;
+    width: 100px;
+}
+#manage-modify{
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#manage-modify::-webkit-scrollbar {
+    /*隐藏滚轮*/
+    display: none;
+}
+/*章节部分*/
+.course-details{
+
+}
+.operator{
+    margin: 20px 30px;
+}
+.chapter-content{
+    border-top: solid 1px #adb5bd;
+    padding: 20px 30px;
+    margin: 0 auto;
+    width: 100%;
+}
+.btn-section{
+    display: inline-block;
+}
+.section-content{
+    padding: 10px 75px;
+    margin: 0 auto;
+}
+/*详细章节区*/
+.modify-content{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px 20px 0 20px;
+}
+.modify-content .chapter{
+    margin-bottom: 10px;
+    background-color: #fdfdfe;
+    box-shadow: #666 0px 0px 10px;
+    border-radius: 10px / 10px;
+    padding: 10px;
+    /*border: solid;*/
+}
+.name-chapter{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px;
+}
+.modify-content .section{
+    font-size: 14px;
+    width: auto;
+    height: 40px;
+    margin: 10px 15px;
+    line-height: 40px;
+}
+.icon-play-fill {
+    position:relative;
+    font-size: 26px;
+    top: 5px;
+}
+.modify-content .section:hover{
+    font-size: 14px;
+    width: auto;
+    height: 40px;
+    margin: 10px 15px;
+    line-height: 40px;
+    background-color: #fef3f3;
+    color: #f20d0d;
+}

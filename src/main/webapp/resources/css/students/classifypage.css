@@ -1,0 +1,110 @@
+/*顶部搜索栏*/
+body{
+    background-color: #f5f5f5;
+}
+.container{
+    padding-left:0;
+    padding-right:0;
+}
+
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+.main{
+    margin-top: 70px;
+}
+/*条件分类*/
+.head{
+    width: 1140px;
+    margin: 15px auto;
+    padding: 15px 0;
+    border-bottom: 1px solid #9d9d9d;
+}
+
+.classify-title{
+    width: auto;
+    height: 38px;
+    line-height: 38px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-classify{
+    margin: 0 20px 10px 0;
+}
+
+/*标头*/
+.tip{
+    width: 1140px;
+    margin: 20px auto;
+    font-size: 20px;
+}
+
+/*课程列表*/
+.tab-course{
+    width: 1140px;
+    margin: 20px auto;
+}
+
+/*课程区*/
+.course{
+    height:230px;
+    width: 213px;
+    background-color: white;
+    margin: 0 0 20px 15px;
+    padding: 0;
+    border-radius: 10px/10px;
+    box-shadow: #666 0 0 10px;
+}
+
+.simple-classify{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    height:45px;
+    line-height:45px;
+    padding-left: 20px;
+    font-size: 18px;
+    background: #5bc0de;
+}
+
+.course-name{
+    padding:10px 20px;
+    width: 100%;
+    height:30px ;
+    font-size: 15px;
+    /*多余部分溢出省略号表示*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*禁止换行*/
+    white-space: nowrap;
+}
+.course-details{
+    padding:10px 20px 10px 20px;
+    width: 100%;
+    height:80px ;
+    font-size: 10px;
+    color: #93999f;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.course-owner{
+    display: inline-block;
+    margin:5px 0 10px 20px;
+}
+.course-time{
+    display: inline-block;
+    float: right;
+    padding: 0 10px;
+    margin:5px 10px;
+}
+.course-count{
+    display: inline-block;
+    float: right;
+    margin:5px 20px;
+    font-size: 14px;
+    color: #17a2b8;
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/mooc/resources/images/学士帽.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/mooc/resources/css/common/bootstrap.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/icons.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/common.css">
+    <link rel="stylesheet" href="/mooc/resources/css//teachers/teachinfo.css">
+
+    <script type='text/javascript' src='/mooc/resources/js/common/jquery-3.4.1.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/bootstrap.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/common.js' charset='utf-8'></script>
+    <script src="/mooc/resources/js/common/utils.js"></script>
+    <script src="/mooc/resources/js/common/school.js"></script>
+    <script src='/mooc/resources/js/teachers/teachinfo.js'></script>
+    <title>教师页</title>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mooc">创课网首页</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc/classifypage">全部分类</a>
+                </li>
+            </ul>
+            <a href="/mooc/personinfo" class="user-img"></a>
+        </div>
+    </div>
+</nav>
+<!--背景图片-->
+<div class="main-bg">
+    <div class="col-md-12"></div>
+</div>
+<div class=".container main">
+    <div class="row head">
+        <div class="col-md-3">
+            <img src="/mooc/resources/images/brand.png" class="brand"/>
+        </div>
+        <div class="col-md-4 head-title">加入我们！开课成为老师</div>
+    </div>
+    <div class="row main">
+        <div class="col-md-6 advice">
+            <img class="tip" src="/mooc/resources/images/tip.png"/>
+            <span class="welcome">在线课堂触手可及</span>
+        </div>
+        <div class="col-md-4 offset-2 userinfo">
+            <div class="head-info">
+                请确保您填写信息的真实有效
+            </div>
+            <div class="from-info">
+                <div class="sheet">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">真实姓名</span>
+                        </div>
+                        <input type="text" class="form-control" id="realname" placeholder="请输入您的真实姓名">
+                        <div class="valid-tooltip">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet">
+                    <div class="input-group  mb-3">
+                        <div class=" input-group-prepend">
+                            <span class="input-group-text">选择学历</span>
+                        </div>
+                        <select class="custom-select education" id="education">
+                            <option style='display: none'></option>
+                            <option value="专科">专科</option>
+                            <option value="本科">本科</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="sheet">
+                    <div class="input-group  mb-3">
+                        <div class="course-label input-group-prepend">
+                            <span class="input-group-text">毕业院校</span>
+                        </div>
+                        <input type="text" name="school" class="form-control input-school" id="input-school" readonly="true" placeholder="点击选择大学" />
+                        <div id="school-box" class="school-box">
+                            <h5>选择学校</h5>
+                            <div id="province"></div>
+                            <div id="school"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">上传证书</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file">
+                            <label class="custom-file-label" for="file">选择文件</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet">
+                <span class="explain">说明:不限于学位证书，教师资格证书等图片格式材料</span>
+                </div>
+                <div class="sheet">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">签<br>名</span>
+                        </div>
+                        <textarea class="form-control" id="title" placeholder="填写您的签名"></textarea>
+                    </div>
+                </div>
+                <div class="sheet">
+                    <div class="input-group mb-3">
+                        <div class=" input-group-prepend">
+                            <span class="input-group-text">验证码</span>
+                        </div>
+                        <input type="text" class="form-control code" placeholder="请输入验证码" id="apply-code">
+                        <img id="cpatcha-img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)" src="/mooc/Kaptcha">
+                    </div>
+                </div>
+                <button class="btn btn-success apply" id="apply">提交申请</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部导航栏-->
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <div class="container tail">
+        <div class="tail-main">
+            <img class="tail-img" src="/mooc/resources/images/brand.png">
+            <div class="tail-other">
+                <span class="tail-version">安徽省蚌埠市蚌埠学院毕业设计版权所有 </span>
+                <span class="tail-contact-us"> Copyright © 2020 bbu. All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

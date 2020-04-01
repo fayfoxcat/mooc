@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.fox.mooc.dao.auth.UserCourseSectionDao">
+
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.UserCourseSection" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId"  jdbcType="INTEGER" />
+		<result column="course_id" property="courseId"  jdbcType="INTEGER" />
+		<result column="section_id" property="sectionId"  jdbcType="INTEGER" />
+		<result column="section_name" property="sectionName"  jdbcType="INTEGER" />
+		<result column="status" property="status"  jdbcType="INTEGER" />
+		<result column="rate" property="rate"  jdbcType="INTEGER" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+
+	<sql id="All_Columns">
+		user_id, course_id, section_id,section_name, status, rate, create_time, create_user,
+		update_time, update_user, del, id
+	</sql>
+
+	<select id="queryAll" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="org.fox.mooc.entity.UserCourseSection">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_user_course_section
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="sectionId != null">
+				AND section_id = #{sectionId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY id
+	</select>
+
+	<!--查询最新学习记录-->
+	<select id="queryLatest" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="org.fox.mooc.entity.UserCourseSection">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_user_course_section
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY update_time DESC
+		LIMIT 0, 1
+	</select>
+
+	<!---->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM t_user_course_section
+		WHERE user_id = #{userId}
+	</select>
+
+	<!--查询已学章节记录数-->
+	<select id="getRecordCount" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM t_user_course_section
+		WHERE course_id = #{courseId, jdbcType=INTEGER}
+		AND user_id = #{userId, jdbcType=INTEGER}
+	</select>
+
+	<!--分页返回学习记录-->
+	<select id="queryPage" resultType="org.fox.mooc.dto.UserCourseSectionDTO">
+		SELECT t.* , c.name AS courseName , s.name AS sectionName, c.username AS username, c.picture AS picture
+		FROM t_user_course_section t , t_course c , t_course_section s
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userCourseSectionDTO.userId != null">
+				AND user_id = #{userCourseSectionDTO.userId, jdbcType=INTEGER}
+			</if>
+			<if test="userCourseSectionDTO.courseId != null">
+				AND s.course_id = #{userCourseSectionDTO.courseId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		AND t.course_id = c.id
+		AND t.section_id = s.id
+		ORDER BY update_time DESC
+		LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultType="org.fox.mooc.entity.UserCourseSection">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_course_section
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<!--返回符合条件记录-->
+	<select id="getByRecord" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="org.fox.mooc.entity.UserCourseSection">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_course_section
+		WHERE course_id = #{courseId, jdbcType=INTEGER}
+		AND user_id = #{userId, jdbcType=INTEGER}
+		AND section_id = #{sectionId,jdbcType=INTEGER}
+	</select>
+
+	<!--用户加入学习课程数-->
+	<select id="getStudyCourseCount" parameterType="org.fox.mooc.entity.UserCourseSection" resultType="java.lang.Integer">
+		SELECT
+		count( DISTINCT course_id ) AS count
+		FROM
+		t_user_course_section
+		WHERE
+		user_id = #{userId, jdbcType=INTEGER}
+	</select>
+
+	<!--查询用户已加入课程-->
+	<select id="getStudyCourse" resultType="org.fox.mooc.dto.UserCourseSectionDTO">
+		SELECT t.course_id,name AS courseName,username,brief,picture
+		FROM t_course,
+		(SELECT course_id
+		FROM t_user_course_section
+		WHERE user_id = #{userId, jdbcType=INTEGER}
+		GROUP BY course_id
+		) t
+		WHERE id = t.course_id
+		LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+	</select>
+
+	<insert id="create" parameterType="org.fox.mooc.entity.UserCourseSection" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_course_section
+		( user_id, course_id, section_id, section_name,status, rate, create_time, create_user,
+		update_time, update_user, del, id )
+		VALUES
+		( #{userId, jdbcType=INTEGER}, #{courseId, jdbcType=INTEGER}, #{sectionId, jdbcType=INTEGER}, #{status, jdbcType=INTEGER}, #{rate, jdbcType=INTEGER}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR},
+		#{section_name, jdbcType=INTEGER},#{updateTime, jdbcType=TIMESTAMP}, #{updateUser, jdbcType=VARCHAR}, #{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} )
+	</insert>
+
+	<!--创建新的学习记录-->
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.UserCourseSection" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_course_section
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				user_id,
+			</if>
+			<if test="courseId != null ">
+				course_id,
+			</if>
+			<if test="sectionId != null ">
+				section_id,
+			</if>
+			<if test="sectionName != null ">
+				section_name,
+			</if>
+			<if test="status != null ">
+				status,
+			</if>
+			<if test="rate != null ">
+				rate,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				#{userId, jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null ">
+				#{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+				#{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionName != null ">
+				#{sectionName, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+				#{status, jdbcType=INTEGER},
+			</if>
+			<if test="rate != null ">
+				#{rate, jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null ">
+				#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+				#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="org.fox.mooc.entity.UserCourseSection" flushCache="true">
+		UPDATE t_user_course_section SET
+		user_id = #{userId, jdbcType=INTEGER},
+		course_id = #{courseId, jdbcType=INTEGER},
+		section_id = #{sectionId, jdbcType=INTEGER},
+		section_name = #{sectionName, jdbcType=INTEGER},
+		status = #{status, jdbcType=INTEGER},
+		rate = #{rate, jdbcType=INTEGER},
+		update_time = #{updateTime, jdbcType=TIMESTAMP},
+		update_user = #{updateUser, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+	<!--更新记录-->
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.UserCourseSection" flushCache="true">
+		UPDATE t_user_course_section
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="userId != null ">
+				user_id = #{userId, jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null ">
+				course_id = #{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+				section_id = #{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionName != null ">
+				section_name = #{sectionName, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+				status = #{status, jdbcType=INTEGER},
+			</if>
+			<if test="rate != null ">
+				rate = #{rate, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null ">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+
+	</update>
+
+	<!--移除课程时：移除学习所有记录-->
+	<delete id="remove" parameterType="org.fox.mooc.entity.UserCourseSection" >
+		DELETE
+		FROM t_user_course_section
+		WHERE course_id = #{courseId, jdbcType=INTEGER}
+		AND user_id = #{userId, jdbcType=INTEGER}
+	</delete>
+
+	<delete id="delete" parameterType="org.fox.mooc.entity.UserCourseSection" >
+		DELETE
+		FROM t_user_course_section
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId, jdbcType=INTEGER}
+			</if>
+		</trim>
+	</delete>
+
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.UserCourseSection" flushCache="true">
+		UPDATE t_user_course_section
+		SET del = 1
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+</mapper>

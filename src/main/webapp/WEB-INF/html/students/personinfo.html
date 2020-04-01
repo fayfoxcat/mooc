@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/mooc/resources/images/学士帽.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/mooc/resources/css/common/bootstrap.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/icons.css">
+    <link rel="stylesheet" href="/mooc/resources/css/students/personinfo.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/common.css">
+
+    <script type='text/javascript' src='/mooc/resources/js/common/jquery-3.4.1.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/bootstrap.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/common.js' charset='utf-8'></script>
+    <script src="/mooc/resources/js/common/utils.js"></script>
+    <script src='/mooc/resources/js/students/personinfo.js'></script>
+    <title>用户个人中心</title>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mooc">创课网首页</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mooc/classifypage">全部分类</a>
+                </li>
+            </ul>
+            <span class="exit" style="color: white;font-weight: bold;font-size: 17px;cursor: pointer">注销</span>
+        </div>
+    </div>
+</nav>
+<!--主体部分-->
+<div class=".container main">
+    <div class="row title-bar">
+        <div class="col-md-2 user-img">
+            <img src="" class="rounded-circle img" id="header-img" alt="点击更换头像">
+            <a href="javascript:;" class="header" style="display: none">选择头像
+                <input type="file" id="header" onchange="checkFile(this.value)">
+            </a>
+        </div>
+        <div class="col-md-10 user-info">
+            <div class="options-head">
+                <span class="head"></span>
+                <div class="operator">
+
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row classify-bar">
+        <div class="col-md-2 user-classify">
+            <div class="name"></div>
+            <div class="account"></div>
+            <div class="tip">账户管理</div>
+            <ul>
+                <li class="classify">
+                    <span class="classify-left" id="usermessage">我的消息</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify">
+                    <span class="classify-left" id="userinfo">个人信息</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify teach-model">
+                    <span class="classify-left" id="publish">我的发布</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify">
+                    <span class="classify-left" id="usercourse">我的课程</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify">
+                    <span class="classify-left" id="usercollections">我的收藏</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify">
+                    <span class="classify-left" id="userfollows">我的关注</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <li class="classify">
+                    <span class="classify-left" id="modifypassword">修改密码</span>
+                    <span class="icon-chevron-right"></span>
+                </li>
+                <!--<li class="classify">
+                    <span class="classify-left" id="loginrecord">操作记录</span>
+                    <span class="icon-chevron-right"></span>
+                </li>-->
+            </ul>
+        </div>
+        <div class="col-md-10 user-details">
+            <!--我的消息-->
+            <div class="usermessage-tab collapse show" id="usermessage-tab"></div>
+            <!--个人信息 √-->
+            <div class="userinfo-tab collapse" id="userinfo-tab">
+                <div class="details">
+                    <span class="label label-username">昵称</span>
+                    <span class="content username">&nbsp;</span>
+                </div>
+                <div class="details">
+                    <span class="label label-sex">性别</span>
+                    <span class="content sex">&nbsp;</span>
+                </div>
+                <div class="details">
+                    <span class="label label-mobile">手机号</span>
+                    <span class="content mobile">&nbsp;</span>
+                </div>
+                <!--<div class="details">
+                    <span class="label label-college">毕业院校</span>
+                    <span class="content college">&nbsp;</span>
+                </div>-->
+                <div class="details">
+                    <span class="label label-birthday">出生日期</span>
+                    <span class="content birthday">&nbsp;</span>
+                </div>
+            </div>
+            <!--我的课程-->
+            <div class="usercourse-tab collapse" id="usercourse-tab"></div>
+            <!--我的收藏 √-->
+            <div class="usercollections-tab collapse" id="usercollections-tab"></div>
+            <!--我的关注 √-->
+            <div class="userfollows-tab collapse" id="userfollows-tab"></div>
+            <!--修改密码 √-->
+            <div class="modifypassword-tab collapse" id="modifypassword-tab">
+                <div class="details">
+                    <span class="label label-old">原密码</span>
+                    <input type="password" class="content old-password">
+                </div>
+                <div class="details">
+                    <span class="label label-new">新密码</span>
+                    <input type="password" class="content new-password">
+                </div>
+                <div class="details">
+                    <span class="label label-code">验证码</span>
+                    <input type="text" class="content modify-code">
+                    <img id="cpatcha-img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)" src="/mooc/Kaptcha">
+                </div>
+                <button class="btn btn-success btn-modify-password">确认修改</button>
+            </div>
+            <!--操作记录-->
+            <!--<div class="loginrecord-tab collapse" id="loginrecord-tab">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>登录时间</th>
+                        <th>城市</th>
+                        <th>ip</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>2020-10-13</td>
+                        <td>江苏.南京</td>
+                        <td>112.32.104.24</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>-->
+        </div>
+    </div>
+    <div class="row title-bar">
+        <div class="col-md-12" style="margin:20px auto;">
+            <div class="page" id="page"></div>
+        </div>
+    </div>
+    <!--个人信息模态框-->
+    <div class="modal fade" id="modifyinfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong>更新您的个人信息</strong>
+                </div>
+                <div class="modal-body">
+                    <div class="sheet">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >昵称</span>
+                            </div>
+                            <input type="text" class="form-control" id="username">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >性别</span>
+                            </div>
+                            <select class="custom-select" id="sex">
+                                <option value="0">男</option>
+                                <option value="1">女</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >手机号码</span>
+                            </div>
+                            <input type="text" class="form-control" id="mobile">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >出生日期</span>
+                            </div>
+                            <input type="date" class="form-control" id="birthday">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success submit-userinfo">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--消息模态框-->
+    <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="padding: 10px 20px;">
+                <strong style="padding: 10px 20px;">消息详情</strong>
+                <div class="modal-body" id="modal-message">
+                    <div class="message-info">
+                        <span class="message-course"></span>
+                        <span class="message-text"></span>
+                    </div>
+                    <div class="input-group mb-3" style="height:150px;">
+                        <div class="input-group">
+                            <textarea class="form-control" id="comment-container" placeholder="添加你的回复"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-success submit-replay">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部导航栏-->
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <div class="container tail">
+        <div class="tail-main">
+            <img class="tail-img" src="/mooc/resources/images/brand.png">
+            <div class="tail-other">
+                <span class="tail-version">安徽省蚌埠市蚌埠学院毕业设计版权所有 </span>
+                <span class="tail-contact-us"> Copyright © 2020 bbu. All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.fox.mooc.dao.auth.UserStudyCourseDao">
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.UserStudyCourse" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId"  jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId"  jdbcType="VARCHAR" />
+		<result column="weight" property="weight"  jdbcType="INTEGER" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+	<sql id="All_Columns">
+		user_id, course_id,create_time, create_user, update_time, update_user,
+		del, id
+	</sql>
+	<!--根据id查询用户-->
+	<select id="getById" parameterType="java.lang.Long"  resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_study_course
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<!--分页数据-->
+	<select id="queryPage" resultType="org.fox.mooc.vo.UserStudyCourseVO">
+		SELECT
+		s.id,s.user_id, s.course_id,c.name AS courseName, c.classify, c.classify_name, c.sub_classify, c.sub_classify_name,
+		c.account,c.username AS ownerName, c.brief, c.picture,s.create_time, s.create_user, s.update_time, s.update_user,
+		s.del
+		FROM t_user_study_course s,t_course c
+		WHERE s.del = 0
+		AND s.course_id = c.id
+		<if test="studyCourse.userId != null">
+			AND s.user_id = #{studyCourse.userId }
+		</if>
+		<if test="studyCourse.courseId != null">
+			AND s.course_id = #{studyCourse.courseId }
+		</if>
+		ORDER BY id
+		<if test="rowIndex != null and pageSize != null">
+			LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<!--根据条件返回数据库总记录数-->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.UserStudyCourse" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_user_study_course
+		WHERE del = 0
+		<if test="userId != null">
+			AND user_id = #{userId }
+		</if>
+		<if test="courseId != null">
+			AND course_id = #{courseId }
+		</if>
+	</select>
+
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.UserStudyCourse" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_study_course
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				user_id,
+			</if>
+			<if test="courseId != null ">
+				course_id,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				#{userId, jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null ">
+				#{courseId, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null ">
+				#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+				#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!--选择性更新-->
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.UserStudyCourse" flushCache="true">
+		UPDATE t_user_study_course
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="userId != null ">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null ">
+				course_id = #{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+	</update>
+
+	<!--根据条件选择性删除-->
+	<delete id="delete" parameterType="org.fox.mooc.entity.UserStudyCourse" >
+		DELETE
+		FROM t_user_study_course
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId}
+			</if>
+		</trim>
+	</delete>
+
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.UserStudyCourse" flushCache="true">
+		UPDATE t_user_study_course
+		SET del = 1
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+</mapper>
+
+
+
+
+

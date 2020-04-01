@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.fox.mooc.dao.auth.UserCollectionDao">
+
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.UserCollections" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId"  jdbcType="INTEGER" />
+		<result column="picture" property="picture"  jdbcType="INTEGER" />
+		<result column="name" property="name"  jdbcType="INTEGER" />
+		<result column="brief" property="brief"  jdbcType="INTEGER" />
+		<result column="classify" property="classify"  jdbcType="INTEGER" />
+		<result column="object_id" property="objectId"  jdbcType="INTEGER" />
+		<result column="tips" property="tips"  jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+
+	<sql id="All_Columns">
+		user_id, classify,object_id, tips, create_time, create_user, update_time,
+		update_user, del, id
+	</sql>
+
+	<!--根据条件返回所有用户收藏-->
+	<select id="queryAll" parameterType="org.fox.mooc.entity.UserCollections" resultType="org.fox.mooc.entity.UserCollections">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_user_collections
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="objectId != null">
+				AND object_id = #{objectId, jdbcType=INTEGER}
+			</if>
+			<if test="classify != null">
+				AND classify = #{classify, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY id
+	</select>
+
+	<!--根据userid及classify判断当前课程是否收藏-->
+	<select id="isCollection" parameterType="org.fox.mooc.entity.UserCollections" resultType="org.fox.mooc.entity.UserCollections">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_collections
+		WHERE user_id = #{userId, jdbcType=INTEGER}
+		AND object_id = #{objectId, jdbcType=INTEGER}
+	</select>
+	<!--获取当前用户总收藏数-->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.UserCollections" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM t_user_collections
+		WHERE del = 0
+		AND user_id = #{userId, jdbcType=INTEGER}
+	</select>
+
+	<!--分页加载用户收藏-->
+	<select id="queryPage" resultMap="BeanResultMap">
+		SELECT uc.object_id, uc.id,uc.tips, c.picture,c.name,c.brief, uc.create_time, uc.classify, uc.create_time
+		FROM t_user_collections uc , t_course c
+		WHERE uc.object_id = c.id
+		AND uc.classify = 1
+		AND uc.del = 0
+		AND user_id = #{userCollections.userId, jdbcType=INTEGER}
+		ORDER BY id DESC
+		LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultType="org.fox.mooc.entity.UserCollections">
+		SELECT
+		<include refid="All_Columns"  />
+		FROM t_user_collections
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<insert id="create" parameterType="org.fox.mooc.entity.UserCollections" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_collections
+		( user_id, classify, object_id, tips, create_time, create_user, update_time,
+		update_user, del, id )
+		VALUES
+		( #{userId, jdbcType=INTEGER}, #{classify, jdbcType=INTEGER},#{objectId, jdbcType=INTEGER},#{tips, jdbcType=VARCHAR}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP},
+		#{updateUser, jdbcType=VARCHAR}, #{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} )
+	</insert>
+
+	<!--新建收藏-->
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.UserCollections" flushCache="true" useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_user_collections
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				user_id,
+			</if>
+			<if test="classify != null ">
+				classify,
+			</if>
+			<if test="objectId != null ">
+				object_id,
+			</if>
+			<if test="tips != null ">
+				tips,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+				#{userId, jdbcType=INTEGER},
+			</if>
+			<if test="classify != null ">
+				#{classify, jdbcType=INTEGER},
+			</if>
+			<if test="objectId != null ">
+				#{objectId, jdbcType=INTEGER},
+			</if>
+			<if test="tips != null ">
+				#{tips, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null ">
+				#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+				#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="org.fox.mooc.entity.UserCollections" flushCache="true">
+		UPDATE t_user_collections SET
+		user_id = #{userId, jdbcType=INTEGER},
+		classify = #{classify, jdbcType=INTEGER},
+		object_id = #{objectId, jdbcType=INTEGER},
+		tips = #{tips, jdbcType=VARCHAR},
+		update_time = #{updateTime, jdbcType=TIMESTAMP},
+		update_user = #{updateUser, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+	<!--选择性更新（逻辑恢复、）-->
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.UserCollections" flushCache="true">
+		UPDATE t_user_collections
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="userId != null ">
+				user_id = #{userId, jdbcType=INTEGER},
+			</if>
+			<if test="classify != null ">
+				classify = #{classify, jdbcType=INTEGER},
+			</if>
+			<if test="objectId != null ">
+				object_id = #{objectId, jdbcType=INTEGER},
+			</if>
+			<if test="tips != null ">
+				tips = #{tips, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+				update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+				del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="objectId != null">
+				AND object_id = #{objectId, jdbcType=INTEGER}
+			</if>
+		</trim>
+	</update>
+
+	<delete id="delete" parameterType="org.fox.mooc.entity.UserCollections" >
+		DELETE FROM t_user_collections
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<!--逻辑删除收藏-->
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.UserCollections" flushCache="true">
+		UPDATE t_user_collections
+		SET del = 1
+		WHERE object_id = #{objectId, jdbcType=INTEGER}
+		AND user_id = #{userId, jdbcType=INTEGER}
+	</update>
+
+</mapper>

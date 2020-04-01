@@ -1,0 +1,539 @@
+body{
+    background-image: url("/mooc/resources/images/admin-bg.jpg");
+}
+/*导航栏*/
+.userinfo{
+    border: solid 1px;
+    width: 110px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0 20px;
+}
+.personal-img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 4px 15px 10px 5px;
+}
+
+/*主体*/
+.main{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin-top: 55px;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+ul>li{
+    list-style-type: none;
+    cursor: pointer;
+}
+/*侧边栏*/
+.left-bar{
+    position: absolute;
+    display: inline-block;
+    background-color: rgba(192,192,192, 0.4);
+    border-radius: 10px;
+    margin:10px 10px 0;
+    min-height: 800px;
+    width: 250px;
+}
+
+/*用户信息*/
+.user-state{
+    margin: 15px auto;
+}
+.user-header{
+    display: block;
+    margin: 25px auto 10px;
+    width: 90px;
+    height:90px;
+}
+.user-name{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #d9dde1;
+}
+.icons{
+    width: 65px;
+    margin:5px auto;
+}
+.icon{
+    color:#5e5e5e ;
+    padding: 0;
+    margin: 0;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.manage,.exit{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    /*border: solid 1px;*/
+    margin: 5px auto;
+}
+.manage span,.exit span{
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+}
+.function-active{
+    color: #a71d2a;
+}
+.tip{
+    /*border: solid 1px;*/
+    cursor: pointer;
+}
+.tip:hover{
+    background-color: #adb5bd;
+}
+.classify-bar,.user{
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+}
+.icon-person-fill,.icon-grid-fill{
+    position: absolute;
+    left: 10px;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.tip .icon-chevron-left,.icon-chevron-down{
+    position: absolute;
+    line-height: 45px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.tip-bar{
+    display: inline-block;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-left: 50px;
+}
+/*右展示区*/
+.right-main{
+    display:flex;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 10px 10px 10px 270px;
+    min-height: 800px;
+    border-radius: 10px;
+}
+
+.container-fluid{
+    padding: 0;
+    margin: 0;
+}
+/*头部、搜索美化*/
+.head{
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px 0 30px 20px;
+    border-bottom: solid 1px #0b2e13;
+    color: #117a8b;
+}
+.search-content{
+    margin: 10px;
+}
+.type{
+    height: 38px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: rgba(255,255,255,0.3);;
+}
+.search{
+    background-color: rgba(255,255,255,0.3);
+    height: 38px;
+    margin: auto 0;
+}
+.btn-search{
+    background-color: rgba(0,0,0,0);
+    height: 38px;
+    width: auto;
+    line-height: 33px;
+    text-align: center;
+    color: #28a745;
+    border: solid 1px #28a745;
+    border-radius: 5px;
+}
+/*网站数据*/
+.page-header{
+    padding: 0 15px;
+}
+.count{
+
+}
+.base-data{
+    background-color: #adb5bd;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+}
+.data-tip{
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px;
+    color: #2e6da4;
+}
+.data-trend{
+    display: block;
+}
+.icon-trend{
+    font-size: 28px;
+    color: red;
+}
+.data-count{
+    font-size: 18px;
+    font-weight: bold;
+    float: right;
+    color: #fd7e14;
+}
+.data-progress{
+    display: block;
+    margin: 10px 0;
+}
+/*图表数据*/
+.graph{
+    height: 500px;
+    width: auto;
+    margin: 0 8px;
+}
+
+
+/*用户管理*/
+.user-table{
+    width: 100%;
+    margin-top: 10px;
+}
+.user-table th,.user-table td{
+    text-align: center;
+}
+.user-table button{
+    border: none;
+    background-color:rgba(0,0,0,0);
+    outline-style: none ;
+    color: darkred;
+}
+/*课程分类管理*/
+.classify-content{
+    padding: 10px;
+}
+.add-classify{
+    margin: 10px 10px 0 10px;
+}
+
+.classify-tip{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+/*设置边框和滚动条*/
+ .split-line{
+    border-right: solid 1px;
+}
+.top-classify,.sub-classify{
+    overflow-y: scroll;
+    height: 500px;
+}
+.top-classify::-webkit-scrollbar,.sub-classify::-webkit-scrollbar {
+    /*隐藏滚轮*/
+    display: none;
+}
+.classify-tab th,td{
+    text-align: center;
+}
+.classify-content button{
+    border: none;
+    background-color:rgba(0,0,0,0);
+    outline-style: none ;
+    color: #2e6da4;
+}
+/*课程管理*/
+.update-time,.recommend-weight{
+    margin: 0 10px;
+}
+.course-content,.details-content{
+    margin: 5px;
+    padding: 5px;
+}
+#graph-bar{
+    margin: 20px 0;
+    padding: 20px 10px;
+}
+.course-img img{
+    border-radius: 5px;
+}
+.course-name{
+    font-size: 16px;
+    font-weight: bold;
+    color: #2e6da4;
+    cursor: pointer;
+}
+.course-brief{
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    font-size: 14px;
+    color: #5e5e5e;
+    /*多余部分溢出省略号表示*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.operator{
+    font-size: 16px;
+    margin: 5px;
+}
+.operator span{
+    margin: 0 5px;
+}
+.operator button{
+    border: none;
+    background-color: rgba(255,255,255,0);
+    outline-style: none ;
+    color: darkred;
+}
+/*轮播配置*/
+.carousel-content{
+    padding: 10px 5px;
+    border-top: solid 1px;
+}
+#carousel-content{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 640px;
+}
+#carousel-content::-webkit-scrollbar {
+    /*隐藏滚轮*/
+    display: none;
+}
+.add-carousel{
+    margin: 10px;
+}
+.carousel-img img{
+    border-radius: 5px;
+}
+.carousel-content button{
+    border: none;
+    background-color: rgba(255,255,255,0);
+    outline-style: none ;
+    color: darkred;
+}
+
+/*修改轮播图模态框*/
+.carousel-picture,.course-picture{
+    display: block;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto 20px auto;
+}
+
+/*详细章节区*/
+.course-modify{
+    color:white ;
+    cursor: pointer;
+}
+
+#section-bar{
+    width: 100%;
+    height: auto;
+    /*border: solid;*/
+    box-sizing: border-box;
+    padding: 0;
+}
+#section-bar .chapter{
+    margin-bottom: 10px;
+    background-color: #fdfdfe;
+    box-shadow: #666 0px 0px 10px;
+    border-radius: 10px / 10px;
+    padding: 10px;
+    /*border: solid;*/
+}
+.chapter-name{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px;
+}
+#section-bar .section{
+    font-size: 14px;
+    width: auto;
+    height: 40px;
+    margin: 10px 15px;
+    line-height: 40px;
+}
+.icon-play-fill {
+    position:relative;
+    font-size: 26px;
+    top: 7px;
+}
+#section-bar .section:hover{
+    font-size: 14px;
+    width: auto;
+    height: 40px;
+    margin: 10px 15px;
+    line-height: 40px;
+    background-color: #fef3f3;
+    color: #f20d0d;
+}
+/*评论区*/
+.details{
+    width: 100%;
+    height: auto;
+    box-shadow: #666 0px 0px 10px;
+    background-color: white;
+    border-radius: 10px/10px;
+    margin:10px auto;
+    padding: 10px;
+}
+.user-img{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.comment-name{
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.comment-time{
+    float: right;
+    font-size: 10px;
+    color: #8c8c8c;
+}
+.comment-text{
+    font-size: 16px;
+    width: 100%;
+    height: auto;
+    padding: 0 10px;
+}
+
+/*我的消息*/
+.message-content{
+    background-color: #f8fafc;
+    height: auto;
+    padding: 10px;
+    border-bottom: solid 1px #adb5bd;
+}
+.message-head{
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+.message-state{
+    position: absolute;
+    display: inline-block;
+    float: right;
+    right: 40px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 5px;
+}
+.receipt-name{
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    margin-left: 50px;;
+    text-overflow: ellipsis;
+}
+.message-time{
+    display: block;
+    margin-left: 50px;;
+    font-size: 12px;
+}
+.message-body{
+    width:auto;
+    margin: 3px 50px;
+    height: auto;
+}
+
+/*申请消息处理页*/
+.apply-page{
+    width:800px ;
+    margin: 0 auto;
+}
+.information{
+    margin: 10px 0;
+}
+.header-label{
+    display: inline-block;
+    width: 200px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    background-color: #c3c3c3;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.applicant-header{
+    display: inline-block;
+    width: 600px;
+    height: 80px;
+    text-align: center;
+    padding: 5px 0;
+    background-color: #d9dde1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.label-tip{
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #c3c3c3;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.user-info{
+    display: inline-block;
+    width: 600px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #d9dde1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.certificate-label{
+    display: inline-block;
+    width: 200px;
+    height: 210px;
+    line-height: 210px;
+    text-align: center;
+    background-color: #c3c3c3;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.user-certificate{
+    display: inline-block;
+    width: 600px;
+    height: 210px;
+    text-align: center;
+    padding: 5px 0;
+    background-color: #d9dde1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.refuse,.agree{
+    float: right;
+    margin: 10px 10px 30px 10px;
+}

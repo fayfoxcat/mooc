@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mooc">
+    <output-path>$PROJECT_DIR$/out/artifacts/mooc</output-path>
+    <root id="archive" name="mooc.war">
+      <element id="artifact" artifact-name="mooc:war exploded" />
+    </root>
+  </artifact>
+</component>

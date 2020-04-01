@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.fox.mooc.dao.course.CourseDao">
+
+	<resultMap id="BeanResultMap" type="org.fox.mooc.entity.course.Course" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="courseName"  jdbcType="VARCHAR" />
+		<result column="classify" property="classify"  jdbcType="VARCHAR" />
+		<result column="classify_name" property="classifyName"  jdbcType="VARCHAR" />
+		<result column="sub_classify" property="subClassify"  jdbcType="VARCHAR" />
+		<result column="sub_classify_name" property="subClassifyName"  jdbcType="VARCHAR" />
+		<result column="account" property="account"  jdbcType="VARCHAR" />
+		<result column="username" property="ownerName"  jdbcType="VARCHAR" />
+		<result column="free" property="free"  jdbcType="INTEGER" />
+		<result column="price" property="price"  jdbcType="DECIMAL" />
+		<result column="time" property="courseTime"  jdbcType="VARCHAR" />
+		<result column="onsale" property="onsale"  jdbcType="INTEGER" />
+		<result column="picture" property="picture"  jdbcType="VARCHAR" />
+		<result column="brief" property="brief"  jdbcType="VARCHAR" />
+		<result column="recommend" property="recommend"  jdbcType="INTEGER" />
+		<result column="weight" property="weight"  jdbcType="INTEGER" />
+		<result column="study_count" property="studyCount"  jdbcType="INTEGER" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+	</resultMap>
+
+
+	<sql id="All_Columns">
+		name, classify, classify_name, sub_classify, sub_classify_name, account,username, free, price, time, onsale, brief, picture,
+		recommend, weight, study_count, create_time, create_user, update_time,
+		update_user, del, id
+	</sql>
+
+	<!--返回课程列表-->
+	<select id="queryList"  parameterType="org.fox.mooc.dto.CourseQueryDTO"  resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_course
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			AND del = 0
+			<if test="account != null">
+				AND account = #{account, jdbcType=INTEGER}
+			</if>
+			<if test="classify != null">
+				AND classify = #{classify, jdbcType=INTEGER}
+			</if>
+			<if test="subClassify != null">
+				AND sub_classify = #{subClassify, jdbcType=INTEGER}
+			</if>
+			<if test="courseName != null">
+				AND name like CONCAT('%',#{courseName},'%' )
+			</if>
+			<if test="ownerName != null">
+				OR username like CONCAT('%',#{ownerName},'%' )
+			</if>
+			<if test="onsale != null">
+				AND onsale = #{onsale, jdbcType=INTEGER}
+			</if>
+			<if test="sortField != null">
+				ORDER BY ${sortField} DESC
+			</if>
+			<if test="rowIndex != null and pageSize != null">
+				LIMIT #{rowIndex, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+			</if>
+		</trim>
+	</select>
+
+	<!--返回图表所需数据-->
+	<select id="queryGraph" parameterType="java.lang.Long" resultType="org.fox.mooc.vo.GraphVO">
+		SELECT a.click_date AS graphTime,ifnull(b.count,0) AS count
+		FROM (
+		select curdate() AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 1 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 2 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 3 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 4 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 5 DAY) AS click_date
+		UNION ALL
+		SELECT date_sub(curdate(), INTERVAL 6 DAY) AS click_date
+		) a LEFT JOIN (
+		SELECT date_format(update_time, '%Y-%m-%d') AS datetime, count(update_time) AS count
+		FROM t_user_study_course
+		where course_id = #{courseId,jdbcType=INTEGER}
+		GROUP BY date_format(update_time, '%Y-%m-%d')
+		) b ON a.click_date = b.datetime
+		ORDER BY a.click_date
+	</select>
+
+	<!--根据条件获取总课程记录数-->
+	<select id="getTotalItemsCount" parameterType="org.fox.mooc.entity.course.Course" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_course
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			AND del = 0
+			<if test="account != null">
+				AND account = #{account, jdbcType=INTEGER}
+			</if>
+			<if test="classify != null">
+				AND classify = #{classify, jdbcType=INTEGER}
+			</if>
+			<if test="subClassify != null">
+				AND sub_classify = #{subClassify, jdbcType=INTEGER}
+			</if>
+			<if test="courseName != null">
+				AND name like CONCAT('%',#{courseName},'%' )
+			</if>
+			<if test="ownerName != null">
+				OR username like CONCAT('%',#{ownerName},'%' )
+			</if>
+			<if test="onsale != null">
+				AND onsale = #{onsale, jdbcType=INTEGER}
+			</if>
+		</trim>
+	</select>
+
+	<!--分页查询-->
+	<select id="queryPage" resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_course
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			AND del = 0
+			<if test="param1.type != null">
+				AND type = #{param1.type, jdbcType=INTEGER}
+			</if>
+			<if test="param1.classify != null">
+				AND classify = #{param1.classify, jdbcType=INTEGER}
+			</if>
+			<if test="param1.subClassify != null">
+				AND sub_classify = #{param1.subClassify, jdbcType=INTEGER}
+			</if>
+			<if test="param1.onsale != null">
+				AND onsale = #{param1.onsale, jdbcType=INTEGER}
+			</if>
+			<if test="param1.name != null">
+				AND name like CONCAT('%',#{param1.name},'%' )
+			</if>
+		</trim>
+		<if test="param2.sortField != null and param2.sortField != ''">
+		ORDER BY ${param2.sortField}  ${param2.sortDirection}
+		</if>
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+	</select>
+
+	<!--根据id返回课程（上架状态且未被逻辑删除）-->
+	<select id="getById" parameterType="java.lang.Long" resultMap="BeanResultMap">
+		SELECT
+		<include refid="All_Columns" />
+		FROM t_course
+		WHERE id = #{id, jdbcType=INTEGER}
+		AND del = 0
+	</select>
+
+
+	<!--创建课程（选择性创建）-->
+	<insert id="createSelectivity" parameterType="org.fox.mooc.entity.course.Course" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_course
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="courseName != null ">
+				name,
+			</if>
+			<if test="classify != null ">
+				classify,
+			</if>
+			<if test="classifyName != null ">
+				classify_name,
+			</if>
+			<if test="subClassify != null ">
+				sub_classify,
+			</if>
+			<if test="subClassifyName != null ">
+				sub_classify_name,
+			</if>
+			<if test="account != null ">
+				account,
+			</if>
+			<if test="ownerName != null ">
+				username,
+			</if>
+			<if test="free != null ">
+				free,
+			</if>
+			<if test="price != null ">
+				price,
+			</if>
+			<if test="courseTime != null ">
+				time,
+			</if>
+			<if test="onsale != null ">
+				onsale,
+			</if>
+			<if test="brief != null ">
+				brief,
+			</if>
+			<if test="picture != null ">
+				picture,
+			</if>
+			<if test="recommend != null ">
+				recommend,
+			</if>
+			<if test="weight != null ">
+				weight,
+			</if>
+			<if test="studyCount != null ">
+				study_count,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="createUser != null ">
+				create_user,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+			<if test="updateUser != null ">
+				update_user,
+			</if>
+			<if test="del != null ">
+				del,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="courseName != null ">
+			#{courseName, jdbcType=VARCHAR},
+			</if>
+			<if test="classify != null ">
+			#{classify, jdbcType=VARCHAR},
+			</if>
+			<if test="classifyName != null ">
+			#{classifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassify != null ">
+			#{subClassify, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassifyName != null ">
+			#{subClassifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="account != null ">
+			#{account, jdbcType=INTEGER},
+			</if>
+			<if test="ownerName != null ">
+			#{ownerName, jdbcType=INTEGER},
+			</if>
+			<if test="free != null ">
+			#{free, jdbcType=INTEGER},
+			</if>
+			<if test="price != null ">
+			#{price, jdbcType=DECIMAL},
+			</if>
+			<if test="courseTime != null ">
+			#{courseTime, jdbcType=VARCHAR},
+			</if>
+			<if test="onsale != null ">
+			#{onsale, jdbcType=INTEGER},
+			</if>
+			<if test="brief != null ">
+			#{brief, jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null ">
+			#{picture, jdbcType=VARCHAR},
+			</if>
+			<if test="recommend != null ">
+			#{recommend, jdbcType=INTEGER},
+			</if>
+			<if test="weight != null ">
+			#{weight, jdbcType=INTEGER},
+			</if>
+			<if test="studyCount != null ">
+			#{studyCount, jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null ">
+			#{createTime, jdbcType=DATE},
+			</if>
+			<if test="createUser != null ">
+			#{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null ">
+			#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+			#{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+			#{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateSelectivity" parameterType="org.fox.mooc.entity.course.Course" flushCache="true">
+		UPDATE t_course
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="courseName != null ">
+			name = #{courseName, jdbcType=VARCHAR},
+			</if>
+			<if test="classify != null ">
+			classify = #{classify, jdbcType=VARCHAR},
+			</if>
+			<if test="classifyName != null ">
+			classify_name = #{classifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassify != null ">
+			sub_classify = #{subClassify, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassifyName != null ">
+			sub_classify_name = #{subClassifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="ownerName != null ">
+			username = #{ownerName, jdbcType=VARCHAR},
+			</if>
+			<if test="free != null ">
+			free = #{free, jdbcType=INTEGER},
+			</if>
+			<if test="price != null ">
+			price = #{price, jdbcType=VARCHAR},
+			</if>
+			<if test="courseTime != null ">
+			time = #{courseTime, jdbcType=VARCHAR},
+			</if>
+			<if test="onsale != null ">
+			onsale = #{onsale, jdbcType=INTEGER},
+			</if>
+			<if test="brief != null ">
+			brief = #{brief, jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null ">
+			picture = #{picture, jdbcType=VARCHAR},
+			</if>
+			<if test="recommend != null ">
+			recommend = #{recommend, jdbcType=INTEGER},
+			</if>
+			<if test="weight != null ">
+			weight = #{weight, jdbcType=INTEGER},
+			</if>
+			<if test="studyCount != null ">
+			study_count = #{studyCount, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null ">
+			update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null ">
+			update_user = #{updateUser, jdbcType=VARCHAR},
+			</if>
+			<if test="del != null ">
+			del = #{del, jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+	</update>
+
+	<insert id="create" parameterType="org.fox.mooc.entity.course.Course" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_course
+		( courseName, type, classify, classify_name, sub_classify, sub_classify_name, direction, username,
+		level, free, price, time, onsale, brief, picture,
+		recommend, weight, study_count, create_time, create_user, update_time,
+		update_user, del, id )
+		VALUES
+		( #{name, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{classify, jdbcType=VARCHAR},  #{classifyName, jdbcType=VARCHAR}, #{subClassify, jdbcType=VARCHAR}, #{subClassifyName, jdbcType=VARCHAR}, #{direction, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR},
+		#{level, jdbcType=INTEGER}, #{free, jdbcType=INTEGER}, #{price, jdbcType=VARCHAR}, #{time, jdbcType=VARCHAR}, #{onsale, jdbcType=INTEGER}, #{brief, jdbcType=VARCHAR}, #{picture, jdbcType=VARCHAR},
+		#{recommend, jdbcType=INTEGER}, #{weight, jdbcType=INTEGER}, #{studyCount, jdbcType=INTEGER}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP},
+		#{updateUser, jdbcType=VARCHAR}, #{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} )
+	</insert>
+
+	<update id="update" parameterType="org.fox.mooc.entity.course.Course" flushCache="true">
+		UPDATE t_course SET
+		name = #{name, jdbcType=VARCHAR},
+		type = #{type, jdbcType=VARCHAR},
+		classify = #{classify, jdbcType=VARCHAR},
+		classify_name = #{classifyName, jdbcType=VARCHAR},
+		sub_classify = #{subClassify, jdbcType=VARCHAR},
+		sub_classify_name = #{subClassifyName, jdbcType=VARCHAR},
+		direction = #{direction, jdbcType=VARCHAR},
+		USERNAME = #{username, jdbcType=VARCHAR},
+		level = #{level, jdbcType=INTEGER},
+		free = #{free, jdbcType=INTEGER},
+		price = #{price, jdbcType=VARCHAR},
+		time = #{time, jdbcType=VARCHAR},
+		onsale = #{onsale, jdbcType=INTEGER},
+		brief = #{brief, jdbcType=VARCHAR},
+		picture = #{picture, jdbcType=VARCHAR},
+		recommend = #{recommend, jdbcType=INTEGER},
+		weight = #{weight, jdbcType=INTEGER},
+		study_count = #{studyCount, jdbcType=INTEGER},
+		update_time = #{updateTime, jdbcType=TIMESTAMP},
+		update_user = #{updateUser, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=INTEGER} 
+	</update>
+	
+	<delete id="delete" parameterType="org.fox.mooc.entity.course.Course" >
+		DELETE 
+		FROM t_course
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<update id="deleteLogic" parameterType="org.fox.mooc.entity.course.Course" flushCache="true">
+		UPDATE t_course
+		SET del = 1
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+
+</mapper>

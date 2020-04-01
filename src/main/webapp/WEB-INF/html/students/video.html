@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>播放页</title>
+    <link rel="icon" href="/mooc/resources/images/学士帽.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/mooc/resources/css/common/bootstrap.css">
+    <link rel="stylesheet" href="/mooc/resources/css/common/icons.css">
+    <link rel="stylesheet" href="/mooc/resources/css/students/video.css">
+
+    <script type='text/javascript' src='/mooc/resources/js/common/jquery-3.4.1.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/bootstrap.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/mooc/resources/js/common/common.js' charset='utf-8'></script>
+    <script src="/mooc/resources/js/common/utils.js"></script>
+    <script src='/mooc/resources/js/students/video.js'></script>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #cccccc;">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item goback">
+                <span class="icon-arrow-left"></span>
+                <span class="course-name"></span>
+            </li>
+        </ul>
+        <a href="/mooc/personinfo" class="user-img"></a>
+    </div>
+</nav>
+<!--播放区-->
+<div class="main">
+    <video src="" id="video" class="video"></video>
+    <div class=".container play-control">
+        <div class="play-progress">
+            <div class="play-full"><div class="play-fall"></div></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="play-left">
+                    <span class="icon-play-fill" id="p-play"></span>
+                    <span class="course-time">00:00/00:00</span>
+                </div>
+
+                <div class="play-right">
+                    <span class="icon-volume-up volume" id="v-ico"></span>
+                    <span class="volume-progress"><div class="volume-full"></div></span>
+                    <select class="select-rate">
+                        <option value="0.5">0.5</option>
+                        <option value="0.75">0.75</option>
+                        <option value="1" selected>正常</option>
+                        <option value="1.25">1.25</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2">2</option>
+                    </select>
+                    <span class="icon-arrows-expand fullscreen"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
