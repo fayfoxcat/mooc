@@ -177,7 +177,7 @@ ul>li{
 }
 .course-brief{
     display: block;
-    height: 60px;
+    height: 40px;
     font-size: 14px;
     color: #5e5e5e;
     width: 500px;
@@ -192,6 +192,7 @@ ul>li{
     height: 120px;
     margin: 0 auto;
     padding: 1px;
+    background-image: url(/mooc/resources/images/course-bg.jpg);
 }
 .course-baseinfo{
     border-bottom: solid 1px #adb5bd;

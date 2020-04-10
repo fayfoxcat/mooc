@@ -306,16 +306,7 @@ $(function () {
                 $('.img').attr('src',data.userinfo.header);
                 $('.user-name').html(data.userinfo.username);
             }else{
-                if(data.message ==="登录失效!"){
-                    $('#login-register').modal('show');
-                    $('.login-modal').css({
-                        "display":"block"
-                    });
-                    $('.register-modal').css({
-                        "display":"none"
-                    });
-                    userState();
-                }
+                return window.location.href='/mooc/login';
             }
         });
     }
@@ -582,7 +573,7 @@ $(function () {
         }
         formData.append('keyword',keyword);
         formData.append('pageIndex',pageIndex);
-        formData.append('pageSize',5);
+        formData.append('pageSize',6);
         formData.append('sort',sessionStorage.getItem('sort'));
         $.post({
             url:("/mooc/admin/courselist"),
@@ -594,7 +585,7 @@ $(function () {
             success:function(data) {
                 if (data.success && data.count>0) {
                     sessionStorage.setItem('course-count',data.count);
-                    sessionStorage.setItem('course-page',Math.ceil(data.count/10));
+                    sessionStorage.setItem('course-page',Math.ceil(data.count/6));
                     /*分页课程数据*/
                     var courseList = '';
                     data.courseList.map(function (item, index) {
@@ -1340,14 +1331,14 @@ $(function () {
                 new Page({
                     id: 'page',
                     pageTotal: sessionStorage.getItem('course-page'),
-                    pageAmount: 10,
+                    pageAmount: 6,
                     dataTotal: sessionStorage.getItem('course-count'),
                     curPage:1,
                     pageSize: 5,
                     showPageTotalFlag:true,
                     showSkipInputFlag:true,
                     getPage: function (page) {
-                        CourseList(page,"weight");
+                        CourseList(page);
                     }
                 });
                 break;

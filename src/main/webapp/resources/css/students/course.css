@@ -29,6 +29,7 @@ body{
     width: 1200px;
     height: 45px;
     margin: 0 auto;
+    color: white;
 }
 
 .course-info .info{
@@ -37,13 +38,13 @@ body{
 }
 .course-name{
     font-size: 30px;
-    /*color: white;*/
+    color: white;
     padding: 0;
     margin: 15px 0;
 }
 
 .course-message{
-    color: #5e5e5e;
+    color: #fdfdfe;
     font-size: 14px;
 }
 

@@ -519,9 +519,9 @@ $(function () {
                         +'</span><span class="course-brief">'
                         +item.brief
                         +'</span></div><div class="user-operator">'
-                        +'<span class="tips"><strong>Tips:</strong>'
-                        +item.tips
-                        +'</span><span class="cancel-collection">取消收藏</span></div></div>';
+                        /*+'<span class="tips"><strong>Tips:</strong>'
+                        +item.tips+'</span>'*/
+                        +'<span class="cancel-collection">取消收藏</span></div></div>';
                 });
             }else{
                 collectionList = '<h5 class="null-tip">未查询到相关数据!</h5>';
