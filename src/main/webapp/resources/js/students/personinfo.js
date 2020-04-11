@@ -17,15 +17,6 @@ function checkFile(img){
                 }
                 else{
                     toast("id","系统消息",data.message);
-                    if(data.message ==="登录失效!"){
-                        $('#login-register').modal('show');
-                        $('.login-modal').css({
-                            "display":"block"
-                        });
-                        $('.register-modal').css({
-                            "display":"none"
-                        });
-                    }
                 }
             }
         });
@@ -68,16 +59,7 @@ $(function () {
                     $(".teach-model").css({"display":"block"});
                 }
             }else{
-                if(data.message ==="登录失效!"){
-                    $('#login-register').modal('show');
-                    $('.login-modal').css({
-                        "display":"block"
-                    });
-                    $('.register-modal').css({
-                        "display":"none"
-                    });
-                    userState();
-                }
+                window.location.href = '/mooc';
             }
         });
     }
@@ -381,8 +363,6 @@ $(function () {
                 }else{
                     $(".message-course").text("#私信");
                 }
-
-
             }
         })
     });
@@ -541,7 +521,8 @@ $(function () {
                 sessionStorage.setItem('follow-page',Math.ceil(data.count/5));
 
                 data.authUsers.map(function(item, index) {
-                    follows += '<div class="follows"><img class="rounded-circle teacher-img" src="'
+                    follows += '<div class="follows" account="'
+                        +item.account+'"><img class="rounded-circle teacher-img" src="'
                         +item.header+'"/><div class="teacher-info"><span class="teacher-name">'
                         +item.realname+'</span><span class="teacher-education">'
                         +item.collegeName+'-'+item.education+'</span><span class="teacher-title">'
@@ -565,17 +546,9 @@ $(function () {
                 toast("id","系统通知",data.message);
             }else {
                 toast("id","系统通知",data.message);
-                if(data.message === "登录失效!"){
-                    $('#login-register').modal('show');
-                    $('.login-modal').css({
-                        "display":"block"
-                    });
-                    $('.register-modal').css({
-                        "display":"none"
-                    });
-                }
             }
         });
+        return false;
     });
 
     /*移除课程*/
@@ -586,15 +559,6 @@ $(function () {
                 toast("id",'用户通知',data.message)
             }else{
                 toast("id",'用户通知',data.message);
-                if(data.message ==="登录失效!"){
-                    $('#login-register').modal('show');
-                    $('.login-modal').css({
-                        "display":"block"
-                    });
-                    $('.register-modal').css({
-                        "display":"none"
-                    });
-                }
             }
         });
         return false;
@@ -630,6 +594,12 @@ $(function () {
     /*跳转到讲师课程管理页面*/
     $("#publish").click(function () {
         window.location.href = '/mooc/coursemanage';
+    });
+
+    /*跳转到课程分类页，并显示当前讲师所有课程*/
+    $(document).on('click','.follows',function(e){
+        var account = $(this).attr("account");
+        window.location.href = '/mooc/classifypage?account='+account;
     });
 
     /*收藏：点击不同课程跳转相应的详情页*/

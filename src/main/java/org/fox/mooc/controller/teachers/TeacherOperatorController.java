@@ -205,19 +205,19 @@ class TeacherOperatorController {
                         //先获取最大的排序id
                         Integer maxSort = courseSectionService.getMaxSort(courseSections.get(0).getCourseId());
 
-                        for (int i = 0; i < courseSections.size(); i++) {
-                            CourseSectionVO tmpVO = courseSections.get(i);
+                        for (int i = 1; i <= courseSections.size(); i++) {
+                            CourseSectionVO tmpVO = courseSections.get(i-1);
                             if (null == maxSort) {
                                 maxSort = 0;
                             }
-                            maxSort += (i + 1);
+                            maxSort = i;
                             CourseSection courseSection = new CourseSection();
                             courseSection.setCourseId(tmpVO.getCourseId());
                             courseSection.setName(tmpVO.getName());
                             courseSection.setParentId(0L);//章的parentId固定为0
                             courseSection.setSort(maxSort);
-                            /*管理员未审核，默认未上架状态*/
-                            courseSection.setOnsale(0);
+
+                            courseSection.setOnsale(1);
                             courseSection.setCreateTime(new Date());
                             courseSection.setUpdateTime(new Date());
                             courseSection.setCreateUser(authUser.getUsername());
@@ -277,6 +277,70 @@ class TeacherOperatorController {
         } catch (Exception e) {
             resultMap.put("success",false);
             resultMap.put("message",e.getMessage());
+        }
+        return resultMap;
+    }
+
+    /**
+     * 修改课程章（章名称）、节（节名称、url、时常）
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/modifysection", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> ModifySection(HttpServletRequest request){
+        Map<String, Object> resultMap = new HashMap<>();
+        CourseSection courseSection = new CourseSection();
+        Long id = HttpServletRequestUtil.getLong(request,"id");
+        String sectionName = HttpServletRequestUtil.getString(request,"name");
+        String url = HttpServletRequestUtil.getString(request,"url");
+        String time = HttpServletRequestUtil.getString(request,"time");
+        try {
+            AuthUser authUser = (AuthUser)request.getSession().getAttribute("userinfo");
+            if (authUser != null) {
+                courseSection.setId(id);
+                courseSection.setName(sectionName);
+                courseSection.setVideoUrl(url);
+                courseSection.setTime(time);
+                courseSectionService.updateSelectivity(courseSection);
+                resultMap.put("success", true);
+                resultMap.put("message","修改成功！");
+            } else {
+                resultMap.put("success", false);
+                resultMap.put("message","登录超时,凭证失效，请重新登录！");
+            }
+        } catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", e.getMessage());
+        }
+        return resultMap;
+    }
+
+    /**
+     * 删除章节(若删除章，其节也会被删除)
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deletesection", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> DeleteSection(HttpServletRequest request){
+        Map<String, Object> resultMap = new HashMap<>();
+        CourseSection courseSection = new CourseSection();
+        Long id = HttpServletRequestUtil.getLong(request,"id");
+        try {
+            AuthUser authUser = (AuthUser)request.getSession().getAttribute("userinfo");
+            if (authUser != null) {
+                courseSection.setId(id);
+                courseSectionService.delete(courseSection);
+                resultMap.put("success", true);
+                resultMap.put("message","删除成功！");
+            } else {
+                resultMap.put("success", false);
+                resultMap.put("message","登录超时,凭证失效，请重新登录！");
+            }
+        } catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", e.getMessage());
         }
         return resultMap;
     }

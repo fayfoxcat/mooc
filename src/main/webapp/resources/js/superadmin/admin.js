@@ -686,6 +686,7 @@ $(function () {
     /*章节、评论、答疑、统计切换*/
     $('.nav-link').click(function () {
         userState();
+        $('.page').html('');
         $(".nav-link,.c-manage").removeClass('active show');
         $(this).addClass("active");
         switch ($(this).attr("class").split(' ').shift()) {
@@ -765,7 +766,7 @@ $(function () {
                             +item.sections[i].name+'">'
                             +'<span class="icon-play-fill"></span>'
                             +'<span class="section-name">'
-                            +item.sort+'-'+item.sections[i].sort+item.sections[i].name
+                            +(index+1)+'-'+(i+1)+item.sections[i].name
                             +'</span><span style="float: right">'
                             +'<a href="javascript:" class="modify-section" section-time="'
                             +item.sections[i].time+'" section-url="'
@@ -779,7 +780,7 @@ $(function () {
                         + item.id+'"><span style="float: right;font-size: 14px;font-weight:normal; ">'
                         +'<a href="javascript:" class="modify-chapter">修改</a>'
                         +'<a href="javascript:" class="delete-section" style="margin: 0 10px;">删除</a></span>'
-                        +'第'+item.sort+'章 '+item.name
+                        +'第'+(index+1)+'章 '+item.name
                         +'</div>'
                         +sectionmodel+'</div>';
                 });
@@ -1602,7 +1603,9 @@ $(function () {
                     value: 0,
                     width: 1,
                     color: '#0089D2'
-                }]
+                }],
+                //设置为false，人数不可小数
+                allowDecimals:false
             },
             tooltip: {
                 valueSuffix: "人"

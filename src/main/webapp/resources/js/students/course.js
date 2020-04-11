@@ -162,7 +162,7 @@ $(function () {
                             +item.sections[i].id+'">'
                             +'<span class="icon-play-fill"></span>'
                             +'<span class="section-name">'
-                            +item.sort+'-'+item.sections[i].sort+item.sections[i].name
+                            +(index+1)+'-'+(i+1)+item.sections[i].name
                             +'</span></div>';
                         var section = {
                             'sectionId':item.sections[i].id,
@@ -170,7 +170,7 @@ $(function () {
                         };
                     }
                     chapterModel +='<div class="chapter"><div class="chapter-name">'
-                        +'第'+item.sort+'章 '+item.name
+                        +'第'+(index+1)+'章 '+item.name
                         +'</div>'
                         +sectionModel+'</div>';
                 });
@@ -277,6 +277,7 @@ $(function () {
                         +'<button type="button" class="btn btn-success btn-follow">'
                         +'+关注'+'</button>';
                 sessionStorage.setItem("account",auther.account);
+                sessionStorage.setItem("owner",auther.id);
             }
             $('.recommend').html(teacherInfo);
         });
@@ -305,9 +306,9 @@ $(function () {
 
     /*关注切换*/
     $(document).on('click','.btn-follow',function () {
-       var owner = sessionStorage.getItem("owner");
-       var url = '/mooc/useroperator/dofollow?owner='+owner;
-       $.get(url, function(data) {
+        const owner = sessionStorage.getItem("owner");
+        const url = '/mooc/useroperator/dofollow?owner=' + owner;
+        $.get(url, function(data) {
            if (data.success) {
                toast("id","系统通知",data.message);
                ShowFollowState();

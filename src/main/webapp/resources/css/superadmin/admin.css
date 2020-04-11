@@ -338,6 +338,11 @@ ul>li{
     width: 300px;
     height: 200px;
     margin: 0 auto 20px auto;
+    background-image: url("/mooc/resources/images/upload-tip.png");
+    background-position: 48% 47%;
+    background-size: 144px 50px;
+    background-repeat: no-repeat;
+    border: solid 1px;
 }
 
 /*详细章节区*/

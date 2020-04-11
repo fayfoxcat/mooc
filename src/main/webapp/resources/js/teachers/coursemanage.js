@@ -201,7 +201,7 @@ $(function () {
                             +item.sections[i].id+'" section-name="'
                             +item.sections[i].name+'">'
                             +'<span class="icon-play-fill"></span>'
-                            +'<span class="name-section">'+item.sort+'-'+item.sections[i].sort+item.sections[i].name+'</span>'
+                            +'<span class="name-section">'+(index+1)+'-'+(i+1)+item.sections[i].name+'</span>'
                             +'<span style="float: right">'
                             +'<span class="btn-upload-'
                             +item.sections[i].id+' v-list" style="margin-right:20px;color:coral;cursor: pointer;">'
@@ -219,7 +219,7 @@ $(function () {
                         + item.id+'"><span style="float: right;font-size: 14px;font-weight:normal; ">'
                         +'<a href="javascript:" class="modify-chapter">修改</a>'
                         +'<a href="javascript:" class="delete-section" style="margin: 0 10px;">删除</a></span>'
-                        +'第'+item.sort+'章 '+item.name
+                        +'第'+(index+1)+'章 '+item.name
                         +'</div>'
                         +sectionModel+'</div>';
                 });
@@ -298,7 +298,7 @@ $(function () {
         formData.append("url",$("#video-url").val());
         formData.append("time",$("#video-time").val());
         $.ajax({
-            url:("/mooc/admin/modifysection"),
+            url:("/mooc/teacher/modifysection"),
             type:'POST',
             data:formData,
             contentType:false,
@@ -321,7 +321,7 @@ $(function () {
         var formData = new FormData();
         formData.append("id",$(this).parent().parent().attr("section-id"));
         $.ajax({
-            url:("/mooc/admin/deletesection"),
+            url:("/mooc/teacher/deletesection"),
             type:'POST',
             data:formData,
             contentType:false,
@@ -557,7 +557,7 @@ $(function () {
     //添加章
     $("#add-chapter").click(function (){
         var template = $('.chapter-content').clone();
-        $('.course-details').append(template);
+        $('#manage-add').append(template);
     });
     //删除章
     $(document).on('click','.remove-chapter',function () {

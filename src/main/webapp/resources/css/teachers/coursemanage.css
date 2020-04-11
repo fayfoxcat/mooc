@@ -1,5 +1,8 @@
 body{
     background-image: url("/mooc/resources/images/course-bg.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 /*顶部搜索栏*/
 .container{
@@ -192,7 +195,10 @@ ul>li{
     height: 120px;
     margin: 0 auto;
     padding: 1px;
-    background-image: url(/mooc/resources/images/course-bg.jpg);
+    background-image: url("/mooc/resources/images/upload-tip.png");
+    background-position: 48% 47%;
+    background-size: 144px 50px;
+    background-repeat: no-repeat;
 }
 .course-baseinfo{
     border-bottom: solid 1px #adb5bd;
