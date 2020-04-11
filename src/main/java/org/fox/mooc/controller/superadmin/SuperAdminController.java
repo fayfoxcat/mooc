@@ -128,8 +128,6 @@ class SuperAdminController {
 
         Integer rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
         try {
-            //获取用户总数量
-            int count = authUserService.getTotalItemsCount(authUser);
             //加载用户列表;模糊匹配
             if (role!=-1){
                 authUser.setRole(role);
@@ -138,6 +136,9 @@ class SuperAdminController {
                 authUser.setUsername(keyWord);
                 authUser.setRealname(keyWord);
             }
+            //获取用户总数量
+            int count = authUserService.getTotalItemsCount(authUser);
+            //获取用户列表
             List<AuthUser> authUserslist = authUserService.queryPage(authUser, rowIndex, pageSize);
             resultMap.put("success",true);
             resultMap.put("count",count);

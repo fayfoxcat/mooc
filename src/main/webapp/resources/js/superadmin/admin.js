@@ -5,7 +5,8 @@ $(function () {
 
     /*用户模糊查询*/
     $('#search-user').click(function () {
-       AuthUserList(1);
+        AuthUserList(1);
+        setTimeout("$('.user-manage').click()","100");
     });
 
     /*点击一级分类只加载对应二级分类*/

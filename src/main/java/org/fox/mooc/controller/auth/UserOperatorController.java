@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -136,7 +137,7 @@ public class UserOperatorController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> Login(HttpServletRequest request){
+    private Map<String, Object> Login(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> resultMap = new HashMap<>();
         //、判读验证码是否正确
         if (!Codeutil.checkVerifyCode(request)) {

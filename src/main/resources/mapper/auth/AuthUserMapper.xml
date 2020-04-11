@@ -258,6 +258,9 @@
 		<if test="username != null">
 			AND username like CONCAT('%',#{username},'%' )
 		</if>
+		<if test="realname != null">
+			OR realname like CONCAT('%',#{realname},'%' )
+		</if>
 		<if test="role != null">
 			AND role = #{role }
 		</if>

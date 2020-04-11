@@ -20,28 +20,32 @@ public class RoleInterceptor  implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
         //获取session
         AuthUser authUser = (AuthUser) request.getSession().getAttribute("userinfo");
-        //判断session里是不是有登录信息
-        if (authUser!=null){
-            //请求路径
-            String urlPath = request.getServletPath();
-            if (urlPath.contains("/admin")){
-                if(authUser.getRole()==0) {
-                    return true;
-                }else{
-                    response.sendRedirect("/mooc/login.html");
-                    return false;
-                }
-            }else if (urlPath.contains("/coursemanage")){
-                if(authUser.getRole()==0||authUser.getRole()==2) {
-                    return true;
-                }else{
-                    response.sendRedirect("/mooc/teachinfo.html");
-                    return false;
-                }
-            }else return urlPath.contains("/personinfo");
-        }else{
-            response.sendRedirect("/mooc/index.html");
-            return false;
+        //请求路径
+        String urlPath = request.getServletPath();
+        if (urlPath.contains("/admin")) {
+            if (authUser != null && authUser.getRole() == 0) {
+                return true;
+            } else {
+                response.sendRedirect("/mooc/login.html");
+                return false;
+            }
+        } else if (urlPath.contains("/coursemanage")) {
+            if (authUser == null ) {
+                response.sendRedirect("/mooc/index.html");
+                return false;
+            } else if (authUser.getRole() == 0 || authUser.getRole() == 2){
+                return true;
+            }else{
+                response.sendRedirect("/mooc/teachinfo.html");
+                return false;
+            }
+        } else {
+            if (urlPath.contains("/personinfo")) {
+                return true;
+            } else {
+                response.sendRedirect("/mooc/index.html");
+                return false;
+            }
         }
     }
 
