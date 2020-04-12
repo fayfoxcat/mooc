@@ -155,7 +155,6 @@ $(function () {
     });
 
     /*添加分类函数*/
-    //TODO
     $("#submit-classify").click(function () {
         var formData = new FormData();
         var parentCode = $(".top-code").val();

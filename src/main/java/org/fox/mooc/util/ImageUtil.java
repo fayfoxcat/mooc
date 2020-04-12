@@ -110,8 +110,8 @@ public class ImageUtil {
 	 * @return String
 	 */
 	public static String getRandomFileName() {
-		//获取五位随机数
-		int rannum = r.nextInt(89999)+10000;
+		//获取三位随机数
+		int rannum = r.nextInt(899)+100;
 		//将时间格式化为字符串
 		String nowTimeStr = sDateFormat.format(new Date());
 		//自动转换为String返回
