@@ -33,9 +33,9 @@ public class EmailCode {
         //发送端口
         String host = "smtp.qq.com";
         //邮箱地址
-        String username = "2369150513@qq.com";
+        String username = "";
         //邮箱密码
-        String password = "twrqdsnhkqgdeadb";
+        String password = "";
         //初始化
         SendMailUtils.setInitData(host, username, password);
     }
