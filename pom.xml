@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>5.1.5.RELEASE</version>
+      <version>5.3.18</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
     <!-- 这个jar文件时所有应用都要用到的，它包含配置文件、创建和管理bean以及运行Inversion of Cont /Dependercy
