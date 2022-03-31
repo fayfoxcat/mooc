@@ -46,7 +46,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>5.1.5.RELEASE</version>
+      <version>5.3.18</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
     <!-- 这个jar文件为spring核心提供了大量的扩展。可以找到使用Spring ApplicationContext特性时所 需的全部类，instrumentation组件以及校验Validation方面的相关类 -->
